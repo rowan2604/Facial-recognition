@@ -2,7 +2,7 @@ import face_recognition
 import argparse
 import pickle
 import cv2
-import numpy as numpy
+
 
 argument_ligne_commande=argparse.ArgumentParser()
 

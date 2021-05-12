@@ -5,6 +5,7 @@ import pickle
 import cv2
 import os
 
+
 argument_ligne_commande= argparse.ArgumentParser()
 argument_ligne_commande.add_argument("--i",'--set_image_recognition',required=True,help="Chemin d'accees aux images de reconnaissance")
 #les arguments de ligne de commande sont la pour spécifier le chemin de l'image d'entrée.
