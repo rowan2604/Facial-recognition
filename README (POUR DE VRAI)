@@ -1,0 +1,10 @@
+Dans le dossier où se trouvent les fichiers de ma branche:
+
+npm init -y
+
+Dans "package.json", vérifiez que la valeur de "main" est bien "server.js"
+
+npm install express
+npm install http
+npm install mysql
+npm install socket.io
