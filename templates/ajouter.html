@@ -11,27 +11,15 @@
     <title>Ajouter étudiant</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
-        <a class="navbar-brand" href="{{ url_for('index')}}">FlaskBlog</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">About</a>
-            </li>
-            </ul>
-        </div>
-    </nav>
+    <br><br><br>
     <div class="container">
-      <form action="/test/" method="post">
+      <form action="/index/" method="post">
         <div>
             <label for="name">Nom :</label>
             <input type="text" id="nom" name="nom">
         </div>
         <div>
-            <label for="prenom">Prénom:</label>
+            <label for="prenom">Prénom :</label>
             <input type="prenom" id="prenom" name="prenom">
         </div>
         <div>
@@ -43,7 +31,7 @@
           <input type="file" id="avatar" name="photo" accept="image/png, image/jpeg">
         </div>
         <div class="form-example">
-          <button type="submit">Cliquez Ici</button>
+          <button type="submit">Ajouter</button>
         </div>
       </form>
     </div>

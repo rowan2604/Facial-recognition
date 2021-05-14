@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Etudiants</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename= 'css/pageBDD.css') }}">
+		<meta charset="UTF-8"/>
+	</head>
+	<body>
+		<header>
+			<ul>
+  				<li style="float:right"><a>Déconnexion</a></li>
+				<li style="float:right"><a href="/ajouter/">Ajouter</a></li>
+			</ul>
+		</header>
+		<table>
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Prénom</th>
+					<th>Classe</th>
+					<th>Présence</th>
+				</tr>
+			</thead>
+			<tbody id="Etudiants">
+			</tbody>
+		</table>
+		<script src="{{url_for('static', filename='js/pageBDD.js')}}"></script>
+	</body>
+</html>
