@@ -24,11 +24,11 @@
 
                     <!--lignes-->
                     <tr>
-                        <td><input type="text"></td>
-                        <td><input type="text"></td>
-                        <td><input type="text"></td>
-                        <td><a type="image" style="text-align: center;"> e</a></td>
-                        <td><a type="text">zebi</a></td>
+                        <td><input type="text" name="Nom"></td>
+                        <td><input type="text" name="Prénom"></td>
+                        <td><input type="text" style="text-align: center;" name="Promotion"></td>
+                        <td><a type="image" style="text-align: center;" name="Photo"> </a></td>
+                        <td><a type="text" name="Etat">0</a></td>
                         <!--button de sauvegarde-->
                         <td>
                             <button type="button" style="margin-left: 5% ; height: 50px; width: 50px;"
@@ -53,3 +53,6 @@
 
         </div>
     </div>
+    def add():
+        text=request.form['Nom']
+        processed_text=text.upper()
