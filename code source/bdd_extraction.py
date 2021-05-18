@@ -1,4 +1,8 @@
 import mysql.connector
+import os
+import shutil
+
+
 
 print("SCRIPT BDD_EXTRACTION LAUNCH")
 
@@ -25,16 +29,21 @@ try:
     resultat=cursor.fetchall()
     
     for info in resultat:
+        if os.path.exists("bdd_picture/"+info[2]+info[1]):
+            print("je suis la")
+            shutil.rmtree("bdd_picture/"+info[2]+info[1])
+            print("je suis la")
+        os.mkdir("bdd_picture/"+info[2]+info[1])
         image=info[5]
-        path="C:/Users/Abderzak/Desktop/Ecole ISEN/CIR3/Projet Reconnaissance faciale code/code source/bdd_picture/"+info[2]+" "+info[1]+".jpeg"
+        path="C:/Users/Abderzak/Desktop/Ecole ISEN/CIR3/Projet Reconnaissance faciale code/code source/bdd_picture/"+info[2]+info[1]+"/"+info[2]+" "+info[1]+".jpeg"
         with open(path, 'wb') as myfile:
             myfile.write(image)
    
 
     conn.commit()
 
-except (Exception):
-    print("Error")
+except (Exception) as error:
+    print("Error",error)
 
 finally:
     if conn.is_connected():

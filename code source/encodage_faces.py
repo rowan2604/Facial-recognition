@@ -31,9 +31,9 @@ for(i,imagePaths) in enumerate(imagePaths):
     #nous allons extraire le Nom de la personne du imagePath
     #print(imagePaths)# ce qui donne comme résultat faces\nom.extension
     print("[INFO] Traitement d'image {}/{}".format(i+1,count_picture))
-    nom=imagePaths.split(os.path.sep)[-1]
-    nom=nom.split(".")
-    nom=nom[0]
+    nom=imagePaths.split(os.path.sep)[-2]
+    #nom=nom.split(".")
+    #nom=nom[0]
     print(nom)
     # charger l'image d'entrée et la convertir à partir de BGR (commande OpenCV)
 	# à l'ordre dlib (RVB)
