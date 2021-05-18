@@ -6,12 +6,13 @@ import pickle
 import cv2
 import time
 
+print("SCRIPT RECOGNITION_FACES_VIDEO LAUNCH")
+
 argument_ligne_commande=argparse.ArgumentParser()
 
 argument_ligne_commande.add_argument("-e", "--encodings", required=True,help="path to serialized db of facial encodings")
 argument_ligne_commande.add_argument("-y", "--display",type=int, default=1,help="afficher ou non l'image de sortie à l'écran")
 argument_ligne_commande.add_argument("-d", "--detection-method", type=str, default="hog",help="Methode de detection d'image cnn(plus lente mais plus precise) ou hog(plus rapide mais moins précise")
-#argument_ligne_commande.add_argument("--o", "--output", type=str,help="chemin accès de la video")
 args = vars(argument_ligne_commande.parse_args())
 
 # Chargement des têtes connues
@@ -19,13 +20,16 @@ print("[INFO] Chargement de l'encodage...")
 data = pickle.loads(open(args["encodings"], "rb").read())  #Charge les têtes encodées et les noms connus
 
 print("[INFO] starting video stream...")
-flux_video=VideoStream(src=0).start()
+#flux_video=VideoStream(src=0).start()
+flux_video=cv2.VideoCapture(0)
+flux_video.set(cv2.CAP_PROP_FPS, 160)
+
 #time.sleep(1.0) #Permet de laisser le temps à la caméra de s'allumer
 
 
 
 while True:
-    frame=flux_video.read() # renvoie un boolean si le flux est bien lu
+    ret,frame=flux_video.read() # renvoie un boolean si le flux est bien lu
     rgb=cv2.cvtColor(frame,cv2.COLOR_BGR2RGB) #convertie la video de BGR en RGB
     rgb=imutils.resize(frame,width=750) #redimensionne la fenêtre avec une largueur de 750
     r=frame.shape [1] / float(rgb.shape [1]) # .shape  renvoie la taille de la frame.
@@ -54,11 +58,12 @@ while True:
             cv2.putText(frame, name, (left, y), cv2.FONT_HERSHEY_SIMPLEX,0.75, (0, 255, 0), 2)
         if args["display"]>0:
             cv2.imshow("Frame",frame)
-            key=cv2.waitKey(1) & 0xFF
-            if key ==ord("q"):
-                break
+    key=cv2.waitKey(1) & 0xFF
+    if key ==ord("q"):
+        break
 cv2.destroyAllWindows
-flux_video.stop()
+flux_video.release()
+
         
         
         

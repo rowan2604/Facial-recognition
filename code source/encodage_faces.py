@@ -5,11 +5,12 @@ import pickle
 import cv2
 import os
 
+print("SCRIPT ENCODAGE_FACES LAUNCH")
 
 argument_ligne_commande= argparse.ArgumentParser()
 argument_ligne_commande.add_argument("--i",'--set_image_recognition',required=True,help="Chemin d'accees aux images de reconnaissance")
 #les arguments de ligne de commande sont la pour spécifier le chemin de l'image d'entrée.
-argument_ligne_commande.add_argument("--d","--detection-method",type=str,default="cnn",help="Methode de detection d'image")
+argument_ligne_commande.add_argument("--d","--detection-method",type=str,default="hog",help="Methode de detection d'image")
 #Avant de pouvoir encoder des visages dans des images, nous devons d'abord les détecter .
 argument_ligne_commande.add_argument("-e", "--encodings", required=True,help="path to serialized db of facial encodings")
 args=vars((argument_ligne_commande.parse_args()))
@@ -44,7 +45,7 @@ for(i,imagePaths) in enumerate(imagePaths):
     for encoding in encodings:
         Encodages_visage_connu.append(encoding)
         nom_connu.append(nom)
-# dump the facial encodings + names to disk
+
 print("[INFO] serializing encodings...")
 data = {"encodings": Encodages_visage_connu, "names": nom_connu}
 f = open(args["encodings"], "wb")
