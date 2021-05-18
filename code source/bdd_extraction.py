@@ -29,13 +29,13 @@ try:
     resultat=cursor.fetchall()
     
     for info in resultat:
-        if os.path.exists("bdd_picture/"+info[2]+info[1]):
+        if os.path.exists("bdd_picture/"+info[0]+info[1]):
             print("je suis la")
-            shutil.rmtree("bdd_picture/"+info[2]+info[1])
+            shutil.rmtree("bdd_picture/"+info[0]+info[1])
             print("je suis la")
-        os.mkdir("bdd_picture/"+info[2]+info[1])
+        os.mkdir("bdd_picture/"+info[0]+info[1])
         image=info[5]
-        path="C:/Users/Abderzak/Desktop/Ecole ISEN/CIR3/Projet Reconnaissance faciale code/code source/bdd_picture/"+info[2]+info[1]+"/"+info[2]+" "+info[1]+".jpeg"
+        path="bdd_picture/"+info[0]+info[1]+"/"+info[0]+" "+info[1]+".jpeg"
         with open(path, 'wb') as myfile:
             myfile.write(image)
    
