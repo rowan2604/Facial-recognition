@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<title>Liste des étudiants</title>
+		<link rel="stylesheet" type="text/css" href="/pageBDD.css">
+		<meta charset="UTF-8"/>
+	</head>
+	<body>
+		<header>
+			<ul>
+				<li><a href="/ajouterEleve">Ajouter un élève</a></li>
+  				<li style="float:right"><a href="#deconnexion">Déconnexion</a></li>
+			</ul>
+		</header>
+		<table>
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Prénom</th>
+					<th>Classe</th>
+					<th>Présence</th>
+				</tr>
+			</thead>
+			<tbody id="Etudiants">
+			</tbody>
+		</table>
+		<script src="/node_modules/socket.io/client-dist/socket.io.js"></script>
+		<script src="pageBDD.js"></script>
+	</body>
+</html>
