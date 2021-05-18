@@ -30,14 +30,21 @@ try:
     
     for info in resultat:
         if os.path.exists("bdd_picture/"+info[0]+info[1]):
-            print("je suis la")
             shutil.rmtree("bdd_picture/"+info[0]+info[1])
-            print("je suis la")
         os.mkdir("bdd_picture/"+info[0]+info[1])
-        image=info[5]
+        image=info[4]
+        image2=info[5]
+        image3=info[6]
         path="bdd_picture/"+info[0]+info[1]+"/"+info[0]+" "+info[1]+".jpeg"
+        path2="bdd_picture/"+info[0]+info[1]+"/"+info[0]+" "+info[1]+"1"+".jpeg"
+        path3="bdd_picture/"+info[0]+info[1]+"/"+info[0]+" "+info[1]+"2"+".jpeg"
         with open(path, 'wb') as myfile:
             myfile.write(image)
+        with open(path2, 'wb') as myfile:
+            myfile.write(image2)
+        with open(path3, 'wb') as myfile:
+            myfile.write(image3)
+
    
 
     conn.commit()
