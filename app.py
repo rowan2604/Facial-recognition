@@ -3,21 +3,32 @@ import mysql.connector
 
 app = Flask(__name__)
 
-def lancer():
-    stream = open("AddToBDD.py")
+def lancer(script):
+    stream = open(script)
     lu = stream.read()
     exec(lu)
 
 
-@app.route('/')
+@app.route('/index')
 def index():
-    return render_template('pageBDD.html')
+    print("je suis la ")
+    conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="b8523d276180fb", password="e548c5fe", database="heroku_432d5a7d6f44b44")
+    conn.text_factory = str
+    cur = conn.cursor()
+    print("Connexion reussie à SQLite")
+    cur.execute("SELECT * FROM Etudiant")
+    posts = cur.fetchall()
+    cur.close()
+    conn.close()
+    print("Connexion SQLite est fermee")
+    return render_template('pageBDD.html', posts=posts)
 
-@app.route('/ajouter/')
+
+@app.route('/ajouter')
 def pageAjouter():
     return render_template('ajouter.html')
 
-@app.route('/index/', methods=['POST'])
+@app.route('/valid', methods=['POST'])
 def ajouterEtRetour():
-    lancer()
-    return render_template('pageBDD.html')
+    lancer("AddToBDD.py")
+    return render_template('valid.html')
