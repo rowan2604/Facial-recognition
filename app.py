@@ -13,7 +13,18 @@ def lancer():
 
 @app.route('/')
 def index():
-    return render_template('pageBDD.html')
+    print("je suis la ")
+    conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="b8523d276180fb", password="e548c5fe", database="heroku_432d5a7d6f44b44")
+    conn.text_factory = str
+    cur = conn.cursor()
+    print("Connexion reussie à SQLite")
+    cur.execute("SELECT * FROM Etudiant")
+    posts=cur.fetchall()
+    cur.close()
+    conn.close()
+    print("Connexion SQLite est fermee")
+    return render_template('pageBDD.html',posts=posts)
+
 
 @app.route('/ajouter/')
 def pageAjouter():
@@ -47,5 +58,4 @@ def ajouterEtRetour():
     conn.close()
     print("Connexion SQLite est fermee")
     
-    
-    return render_template('pageBDD.html')
+    return render_template('/pageBDD.html')
