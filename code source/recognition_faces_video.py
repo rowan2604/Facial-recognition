@@ -1,4 +1,6 @@
-from imutils.video import VideoStream
+from __future__ import print_function
+from imutils.video import WebcamVideoStream
+from imutils.video import FPS
 import face_recognition
 import argparse
 import imutils
@@ -22,8 +24,8 @@ data = pickle.loads(open(args["encodings"], "rb").read())  #Charge les têtes en
 
 print("[INFO] starting video stream...")
 #flux_video=VideoStream(src=0).start()
-flux_video=cv2.VideoCapture(0)
-flux_video.set(cv2.CAP_PROP_FPS, 160)
+flux_video=WebcamVideoStream(src=0).start()
+fps = FPS().start()
 
 #time.sleep(1.0) #Permet de laisser le temps à la caméra de s'allumer
 
@@ -34,9 +36,9 @@ cursor = conn.cursor()
 print("[INFO] CONNEXION BDD SUCCEED")
 
 while True:
-    ret,frame=flux_video.read() # renvoie un boolean si le flux est bien lu
+    frame=flux_video.read() # renvoie un boolean si le flux est bien lu
     rgb=cv2.cvtColor(frame,cv2.COLOR_BGR2RGB) #convertie la video de BGR en RGB
-    rgb=imutils.resize(frame,width=750) #redimensionne la fenêtre avec une largueur de 750
+    rgb=imutils.resize(frame,height=240,width=320) #redimensionne la fenêtre avec une largueur de 320
     r=frame.shape [1] / float(rgb.shape [1]) # .shape  renvoie la taille de la frame.
     boxes=face_recognition.face_locations(rgb,model=args["detection_method"]) #détecte la délimitation du visage
     encodings=face_recognition.face_encodings(rgb,boxes) # encode pour chaque visage detecter
@@ -68,9 +70,13 @@ while True:
             #cursor.execute('UPDATE Etudiant SET Etat=0 WHERE Nom LIKE \'%' + Prenom[0] + '%\' AND Etat=1') #Mettre sur un autre pc
             conn.commit()
             cv2.imshow("Frame",frame)
+    fps.update()
     key=cv2.waitKey(1) & 0xFF
     if key ==ord("q"):
         break
+fps.stop()
+print("[INFO] elasped time: {:.2f}".format(fps.elapsed()))
+print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
 cv2.destroyAllWindows
 flux_video.release()
 cursor.close()
