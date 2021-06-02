@@ -27,10 +27,10 @@
 			<tbody id="Etudiants">
 				{% for post in posts %}
 					<tr>
-				    	<td>{{ post[0] }}</td>
-						<td>{{ post[1] }}</td>
+				    	<td>{{ post[1] }}</td>
 						<td>{{ post[2] }}</td>
-						{% if post[3] == 1 %}
+						<td>{{ post[3] }}</td>
+						{% if post[4] == 1 %}
 						<td class="green"></td>
 						{% else %}
 						<td class="red"></td>
