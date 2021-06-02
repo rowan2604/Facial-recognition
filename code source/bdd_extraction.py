@@ -28,16 +28,17 @@ try:
     cursor.execute(sql)
     resultat=cursor.fetchall()
     
+    
     for info in resultat:
-        if os.path.exists("bdd_picture/"+info[0]+info[1]):
-            shutil.rmtree("bdd_picture/"+info[0]+info[1])
-        os.mkdir("bdd_picture/"+info[0]+info[1])
+        if os.path.exists("bdd_picture/"+info[0]+" "+info[1]):
+            shutil.rmtree("bdd_picture/"+info[0]+" "+info[1])
+        os.mkdir("bdd_picture/"+info[0]+" "+info[1])
         image=info[4]
         image2=info[5]
         image3=info[6]
-        path="bdd_picture/"+info[0]+info[1]+"/"+info[0]+" "+info[1]+".jpeg"
-        path2="bdd_picture/"+info[0]+info[1]+"/"+info[0]+" "+info[1]+"1"+".jpeg"
-        path3="bdd_picture/"+info[0]+info[1]+"/"+info[0]+" "+info[1]+"2"+".jpeg"
+        path="bdd_picture/"+info[0]+" "+info[1]+"/"+info[0]+" "+info[1]+".jpeg"
+        path2="bdd_picture/"+info[0]+" "+info[1]+"/"+info[0]+" "+info[1]+"1"+".jpeg"
+        path3="bdd_picture/"+info[0]+" "+info[1]+"/"+info[0]+" "+info[1]+"2"+".jpeg"
         with open(path, 'wb') as myfile:
             myfile.write(image)
         with open(path2, 'wb') as myfile:

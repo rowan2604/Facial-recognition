@@ -5,6 +5,7 @@ import imutils
 import pickle
 import cv2
 import time
+import mysql.connector
 
 print("SCRIPT RECOGNITION_FACES_VIDEO LAUNCH")
 
@@ -26,7 +27,11 @@ flux_video.set(cv2.CAP_PROP_FPS, 160)
 
 #time.sleep(1.0) #Permet de laisser le temps à la caméra de s'allumer
 
-
+conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com",
+                               user="b8523d276180fb", password="e548c5fe", 
+                               database="heroku_432d5a7d6f44b44")
+cursor = conn.cursor()
+print("[INFO] CONNEXION BDD SUCCEED")
 
 while True:
     ret,frame=flux_video.read() # renvoie un boolean si le flux est bien lu
@@ -46,7 +51,7 @@ while True:
                 counts[name]=counts.get(name,0)+1
             name=max(counts,key=counts.get)
         else:
-            name="unknown"
+            name="Unknown"
         names.append(name)
         for((top,right,bottom,left),name) in zip(boxes,names):
             top=int(top*r)
@@ -57,12 +62,20 @@ while True:
             y = top - 15 if top - 15 > 15 else top + 15
             cv2.putText(frame, name, (left, y), cv2.FONT_HERSHEY_SIMPLEX,0.75, (0, 255, 0), 2)
         if args["display"]>0:
+            Prenom=name.split(" ")
+            print(Prenom[0])
+            cursor.execute('UPDATE Etudiant SET Etat=1 WHERE Nom LIKE \'%' + name[0] + '%\' AND Etat=0')
+            #cursor.execute('UPDATE Etudiant SET Etat=0 WHERE Nom LIKE \'%' + name[0] + '%\' AND Etat=1') #Mettre sur un autre pc
+            conn.commit()
             cv2.imshow("Frame",frame)
     key=cv2.waitKey(1) & 0xFF
     if key ==ord("q"):
         break
 cv2.destroyAllWindows
 flux_video.release()
+cursor.close()
+conn.close()
+print("[INFO] MySQL connection is closed")
 
         
         
