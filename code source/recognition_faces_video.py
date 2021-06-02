@@ -64,8 +64,8 @@ while True:
         if args["display"]>0:
             Prenom=name.split(" ")
             print(Prenom[0])
-            cursor.execute('UPDATE Etudiant SET Etat=1 WHERE Nom LIKE \'%' + name[0] + '%\' AND Etat=0')
-            #cursor.execute('UPDATE Etudiant SET Etat=0 WHERE Nom LIKE \'%' + name[0] + '%\' AND Etat=1') #Mettre sur un autre pc
+            cursor.execute('UPDATE Etudiant SET Etat=1 WHERE Nom LIKE \'%' + Prenom[0] + '%\' AND Etat=0')
+            #cursor.execute('UPDATE Etudiant SET Etat=0 WHERE Nom LIKE \'%' + Prenom[0] + '%\' AND Etat=1') #Mettre sur un autre pc
             conn.commit()
             cv2.imshow("Frame",frame)
     key=cv2.waitKey(1) & 0xFF
