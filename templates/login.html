@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <script src="https://kit.fontawesome.com/64d58efce2.js"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename= 'css/login.css') }}">
+        <title>Page de Connexion</title>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="form-container">
+                <img src="../static/img/JUNIA-ISEN.jpg" alt="JUNIA-ISEN" class="Logo2">
+                <img src="../static/img/logo.PNG" alt="JUNIA-ISEN" class="Logo">
+                <div class="sign_in">
+                    <form action="/auth/" method="POST" enctype="multipart/form-data" class="sign_in_form">
+                        <h2 class="title">Connexion</h2>
+                        <div class="input-username_password">
+                            <i class="fas fa-user"></i>
+                            <input type="text" placeholder="Identifiant" name="Identifiant" id="Identifiant" required>
+                        </div>
+                        <div class="input-username_password">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" placeholder="Mot de passe" name="mdp" id="mdp" required>
+                        </div>
+                        <input type="submit" value="Connexion" class="btn solid">
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+        
+
+
+
+
+
+
+
+
+    </body>
+
+</html>
