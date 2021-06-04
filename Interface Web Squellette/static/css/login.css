@@ -1,0 +1,128 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+}
+
+body,input{
+    font-family:'Poppins',sans-serif ;
+}
+
+.container{
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.form-container{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left:0;
+}
+
+form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0rem 5rem;
+    transition: all 0.2s 0.7s;
+    overflow: hidden;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  
+}
+
+.Logo{
+    position: absolute;
+    left: 35%;
+    top: 19%;
+    width: 450px;
+    
+}
+.Logo2{
+    position: absolute;
+    left: 84%;
+    top: 3%;
+    width: 200px;
+    
+}
+
+form.sign_in_form{
+    z-index: 2;
+}
+
+.title{
+    font-size: 2.2rem;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.input-username_password{
+    max-width: 380px;
+    width: 100%;
+    height: 55px;
+    background-color: #f0f0f0;
+    margin: 10px 0;
+    border-radius: 55px;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    padding: 0 0.4rem;
+}
+
+.input-username_password i{
+    text-align: center;
+    line-height: 55px;
+    color: #acacac;
+    font-size: 1.1rem;
+}
+
+.input-username_password input{
+    background: none;
+    outline: none;
+    border: #444;
+    line-height: #acacac;
+    font-weight: #f0f0f0;
+    font-size: #fff;
+    color:#333;
+}
+
+.input-username_password input::placeholder{
+    color:#aaa;
+    font-weight: 500;
+}
+
+
+.btn{
+    width: 150px;
+    height: 49px;
+    border:none;
+    outline: none;
+    border-radius: 49px;
+    cursor:pointer;
+    background-color: #020805;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin:10px 0;
+    
+}
+
+.btn:hover{
+    background-color: #006f69;
+}
+
+.sign_in{
+    position: absolute;
+    top:20%;
+    left: 50%;
+    transform: translate(-50%,50%);
+    width: 50%;
+    
+}
