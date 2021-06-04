@@ -55,27 +55,188 @@
                     <i class="fas fa-fw fa-table"></i>
                     <span>Liste Etudiant</span></a>
             </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item ">
+                <a class="nav-link collapsed" href="/index" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Promotion</span>
+                </a>
+                <div id="collapseTwo" class="collapse " aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <ul class="  scroller bg-white py-2 collapse-inner rounded  " style="margin: 12px;">
+                        <a ng-click="linkClicked(2)">
+
+                            <a data-toggle="collapse" data-target="#a" aria-expanded="false" aria-controls="1"
+                                class="collapse-item" style="margin-top:  10px;">Tous
+                                <!-- Tous<i aria-hidden="true"></i> -->
+                            </a>
+
+                            <div class="collapse collapse-styled" id="a">
+                                <a ng-click="linkClicked(2)" ng-class="{'current': activeLinks[2]}"
+                                    href="#/session/assign" class="collapse-item">
+                                    Liste complète
+                                    <i aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </a>
+                        <a ng-click="linkClicked(5)" ng-class="{'current': activeLinks[5]}">
+
+                            <a data-toggle="collapse" data-target="#b" aria-expanded="false" aria-controls="2"
+                                class="collapse-item">
+                                Par année<i aria-hidden="true"></i>
+                            </a>
+
+                            <div class="collapse collapse-styled" id="b">
+                                <a ng-click="linkClicked(1)" ng-class="{'current': activeLinks[1]}"
+                                    href="#/session/assign" class="collapse-item">
+                                    1ère année
+                                    <i aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <div class="collapse collapse-styled" id="b">
+
+                                <a ng-click="linkClicked(2)" ng-class="{'current': activeLinks[2]}" href="/ajouter"
+                                    class="collapse-item">
+                                    2ème année
+                                    <i aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <div class="collapse collapse-styled" id="b">
+
+                                <a ng-click="linkClicked(3)" ng-class="{'current': activeLinks[3]}" href="/ajouter"
+                                    class="collapse-item">
+                                    3ème année
+                                    <i aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <div class="collapse collapse-styled" id="b">
+
+                                <a ng-click="linkClicked(4)" ng-class="{'current': activeLinks[4]}" href="/ajouter"
+                                    class="collapse-item">
+                                    4ème année
+                                    <i aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <div class="collapse collapse-styled" id="b">
+
+                                <a ng-click="linkClicked(5)" ng-class="{'current': activeLinks[5]}" href="/ajouter"
+                                    class="collapse-item">
+                                    5ème année
+                                    <i aria-hidden="true"></i>
+                                </a>
+                            </div>
+
+                        </a>
+                        <a ng-click="linkClicked(11)" ng-class="{'current': activeLinks[11]} "
+                            class="ng-class= scroller">
+
+                            <a data-toggle="collapse" data-target="#c" aria-expanded="false" aria-controls="3"
+                                class="collapse-item" style="margin-bottom:  12px;">
+                                Par promo<i aria-hidden="true"></i>
+                            </a>
+
+                            <div class="collapse collapse-styled" id="c">
+                                <a ng-click="linkClicked(1)" ng-class="{'current': activeLinks[1]}"
+                                    href="#/session/assign" class="collapse-item">
+                                    CIR1
+                                    <i aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <div class="collapse collapse-styled" id="c">
+
+                                <a ng-click="linkClicked(2)" ng-class="{'current': activeLinks[2]}" href="/ajouter"
+                                    class="collapse-item">
+                                    CNB1
+                                    <i aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <div class="collapse collapse-styled" id="c">
+
+                                <a ng-click="linkClicked(3)" ng-class="{'current': activeLinks[3]}" href="/ajouter"
+                                    class="collapse-item">
+                                    CPG1
+                                    <i aria-hidden="true"></i>
+                                </a>
+                            </div>
+
+
+                            <div class="collapse collapse-styled" id="c">
+                                <a ng-click="linkClicked(4)" ng-class="{'current': activeLinks[4]}"
+                                    href="#/session/assign" class="collapse-item">
+                                    CIR2
+                                    <i aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <div class="collapse collapse-styled" id="c">
+
+                                <a ng-click="linkClicked(5)" ng-class="{'current': activeLinks[5]}" href="/ajouter"
+                                    class="collapse-item">
+                                    CNB2
+                                    <i aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <div class="collapse collapse-styled" id="c">
+
+                                <a ng-click="linkClicked(6)" ng-class="{'current': activeLinks[6]}" href="/ajouter"
+                                    class="collapse-item">
+                                    CPG2
+                                    <i aria-hidden="true"></i>
+                                </a>
+                            </div>
+
+
+                            <div class="collapse collapse-styled" id="c">
+                                <a ng-click="linkClicked(7)" ng-class="{'current': activeLinks[7]}"
+                                    href="#/session/assign" class="collapse-item">
+                                    CIR3
+                                    <i aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <div class="collapse collapse-styled" id="c">
+
+                                <a ng-click="linkClicked(8)" ng-class="{'current': activeLinks[8]}" href="/ajouter"
+                                    class="collapse-item">
+                                    CNB3
+                                    <i aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <div class="collapse collapse-styled" id="c">
+
+                                <a ng-click="linkClicked(9)" ng-class="{'current': activeLinks[9]}" href="/ajouter"
+                                    class="collapse-item">
+                                    CPG3
+                                    <i aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <div class="collapse collapse-styled" id="c">
+
+                                <a ng-click="linkClicked(10)" ng-class="{'current': activeLinks[10]}" href="/ajouter"
+                                    class="collapse-item">
+                                    M1
+                                    <i aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <div class="collapse collapse-styled" id="c">
+
+                                <a ng-click="linkClicked(11)" ng-class="{'current': activeLinks[11]}" href="/ajouter"
+                                    class="collapse-item">
+                                    M2
+                                    <i aria-hidden="true"></i>
+                                </a>
+                            </div>
+
+
+                        </a>
+
+                    </ul>
+                </div>
+            </li>
+
             <li class="nav-item active">
                 <a class="nav-link" href="/ajouter">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Ajouter Etudiant</span></a>
             </li>
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Promotion</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="#">Buttons</a>
-                        <a class="collapse-item" href="#">Cards</a>
-                    </div>
-                </div>
-            </li>
-
 
             <!-- Divider -->
             <hr class="sidebar-divider">
