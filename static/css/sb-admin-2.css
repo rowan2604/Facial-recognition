@@ -587,6 +587,7 @@ pre code {
   flex-wrap: wrap;
   margin-right: -0.75rem;
   margin-left: -0.75rem;
+  width: 100%;
 }
 
 .no-gutters {
@@ -1210,8 +1211,8 @@ pre code {
     max-width: 50%;
   }
   .col-lg-7 {
-    flex: 0 0 58.33333%;
-    max-width: 58.33333%;
+    flex: 0 0 100%;
+    max-width: 100%;
   }
   .col-lg-8 {
     flex: 0 0 66.66667%;
