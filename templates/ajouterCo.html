@@ -8,7 +8,7 @@
 		<header>
 			<ul>
 				<li><a href="/index">Liste des étudiants</a></li>
-  				<li style="float:right"><a href="#deconnexion">Déconnexion</a></li>
+  				<li style="float:right"><a href="/deconnexion">Déconnexion</a></li>
 			</ul>
 		</header>
 		<div class="container">
@@ -26,7 +26,8 @@
        					<label for="lname">Mot de Passe</label>
    					</div>
    					<div class="col-75">
-       					<input type="password" id="password" name="password" placeholder="Password" required>
+       					<input type="password" id="password" name="password" placeholder="Password" 
+							pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,15})" required>
    					</div>
    				</div>
    				<div class="row">
