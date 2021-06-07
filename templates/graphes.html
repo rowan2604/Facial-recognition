@@ -47,16 +47,14 @@
             <div class="sidebar-heading">
                 Interface
             </div>
-
             <!-- Nav Item - Tables -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="/index">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Liste Etudiant</span></a>
             </li>
-
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item active">
+            <li class="nav-item ">
                 <a class="nav-link collapsed" href="/index" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-table"></i>
@@ -215,7 +213,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/graphes">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Graphiques</span>
+                    <span>Graphique</span>
                 </a>
             </li>
 
@@ -285,48 +283,28 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    {% if annee[0] == '1' %}
-                        <h1 class="h3 mb-2 text-gray-800">Liste des étudiants en {{ annee[0] }}ère année</h1>
-                    {% else %}
-                        <h1 class="h3 mb-2 text-gray-800">Liste des étudiants en {{ annee[0] }}ème année</h1>
-                    {% endif %}
-
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Nom</th>
-                                            <th>Prénom</th>
-                                            <th>Promotion</th>
-                                            <th>Présence</th>
-                                        </tr>
-                                    </thead>
-                                    {% block content %}
-                                    <tbody>
-                                        {% for post in posts %}
-                                        <tr>
-                                            <td>{{ post[1] }}</td>
-                                            <td>{{ post[2] }}</td>
-                                            <td>{{ post[3] }}</td>
-                                            {% if post[4] == 1 %}
-                                            <td class="green" style="background-color: green; font-size: 0px;">{{ post[4] }}</td>
-                                            {% else %}
-                                            <td class="red" style="background-color: red; font-size: 0px;">{{ post[4] }}</td>
-                                            {% endif %}
-                                        </tr>
-                                        {% endfor %}
-
-                                    </tbody>
-                                    {% endblock %}
-                                </table>
+                    <script>
+                        var pres = '{{presences}}';
+                        var abs = '{{absences}}';
+                    </script>
+                
+                    <div class="col-xl-4 col-lg-5">
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Dropdown -->
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Taux d'absence / présence des étudiants</h6>
+                            </div>
+                            <!-- Card Body -->
+                            
+                            <div class="card-body">
+                                <h4 id="presences" style="text-align: center; color: #1cc88a;">{{pct[0]}}%</h4>
+                                <div class="chart-pie pt-4">
+                                    <canvas id="myPieChart"></canvas>
+                                </div>
+                                <h4 id="presences" style="text-align: center; color: #ff0000; margin-top: 5%;">{{pct[1]}}%</h4>
                             </div>
                         </div>
                     </div>
-
-                </div>
                 <!-- /.container-fluid -->
 
             </div>
@@ -380,6 +358,9 @@
 
     <!-- Page level custom scripts -->
     <script src="{{ url_for('static', filename= 'js/demo/datatables-demo.js') }}"></script>
+
+    <script src="{{url_for('static', filename='vendor/chart.js/Chart.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/dashboard.js')}}"></script>
 
 </body>
 

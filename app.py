@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, session, redirect
 from datetime import datetime, timedelta
 import mysql.connector
 from flask_bcrypt import Bcrypt
+from PIL import Image
+import math
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
@@ -86,13 +88,13 @@ def ajouterEtRetour():
             cur = conn.cursor()
             print("Connexion reussie à SQLite")
             sql = "INSERT INTO Etudiant (Nom, Prenom, Promo, Presence, Photo1, Photo2, Photo3, Photo4, Photo5, Photo6, Photo7) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-            blobFile1=pic1.read()
-            blobFile2=pic2.read()
-            blobFile3=pic3.read()
-            blobFile4=pic4.read()
-            blobFile5=pic5.read()
-            blobFile6=pic6.read()
-            blobFile7=pic7.read()
+            blobFile1 = pic1.read()
+            blobFile2 = pic2.read()
+            blobFile3 = pic3.read()
+            blobFile4 = pic4.read()
+            blobFile5 = pic5.read()
+            blobFile6 = pic6.read()
+            blobFile7 = pic7.read()
             value = (nom, prenom, promo, 0, blobFile1, blobFile2, blobFile3, blobFile4, blobFile5, blobFile6, blobFile7)
             cur.execute(sql, value)
             conn.commit()
@@ -188,3 +190,29 @@ def promo():
     
     except mysql.connector.Error as error:
         print("Erreur lors de l'insertion", error)
+
+@app.route('/graphes')
+def graphes():
+    if(request.remote_addr in session ):
+        conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
+        conn.text_factory = str
+        cur = conn.cursor()
+        print("Connexion reussie à SQLite")
+        cur.execute("SELECT * FROM Etudiant")
+        posts = cur.fetchall()
+        cur.execute("SELECT COUNT(*) FROM Etudiant WHERE Presence = 1")
+        presences = cur.fetchone()[0]
+        cur.execute("SELECT COUNT(*) FROM Etudiant WHERE Presence = 0")
+        absences = cur.fetchone()[0]
+        cur.close()
+        conn.close()
+        print("Connexion SQLite est fermee")
+        pctPre = round(presences/(presences + absences) * 100, 2)
+        pctAbs = round(absences/(presences + absences) * 100, 2)
+        pct = []
+        pct.append(pctPre)
+        pct.append(pctAbs)
+        return render_template('graphes.html', posts = posts, presences = presences, absences = absences, pct = pct)
+
+    else:
+        return redirect('/')  
