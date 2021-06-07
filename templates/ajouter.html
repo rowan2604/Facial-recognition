@@ -24,8 +24,6 @@
     <!-- Custom styles for this page -->
     <link href="{{ url_for('static', filename= 'vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
     
 </head>
 
@@ -49,12 +47,14 @@
             <div class="sidebar-heading">
                 Interface
             </div>
+
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="/index">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Liste Etudiant</span></a>
             </li>
+
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item ">
                 <a class="nav-link collapsed" href="/index" data-toggle="collapse" data-target="#collapseTwo"
@@ -62,180 +62,146 @@
                     <i class="fas fa-fw fa-table"></i>
                     <span>Promotion</span>
                 </a>
+
                 <div id="collapseTwo" class="collapse " aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <ul class="  scroller bg-white py-2 collapse-inner rounded  " style="margin: 12px;">
-                        <a ng-click="linkClicked(2)">
+                        <form action="/annee" method="POST" enctype="multipart/form-data">
+                            <a ng-click="linkClicked(5)" ng-class="{'current': activeLinks[5]}">
+                                <a data-toggle="collapse" data-target="#b" aria-expanded="false" aria-controls="2" class="collapse-item">
+                                    Par année<i aria-hidden="true"></i>
+                                </a>
 
-                            <a data-toggle="collapse" data-target="#a" aria-expanded="false" aria-controls="1"
-                                class="collapse-item" style="margin-top:  10px;">Tous
-                                <!-- Tous<i aria-hidden="true"></i> -->
+                                <div class="collapse collapse-styled" id="b">
+                                    <button name="annee" type="submit" href="/annee" value="1" id ="bouton" class="collapse-item btn btn-light mb-2 btn-lg btn-block">
+                                        1ère année
+                                        <i aria-hidden="true"></i>
+                                    </button>
+                                </div>
+
+                                <div class="collapse collapse-styled" id="b">
+                                    <button name="annee" type="submit" href="/annee" class="collapse-item btn btn-light mb-2 btn-lg btn-block" value="2" id ="bouton">
+                                        2ème année
+                                        <i aria-hidden="true"></i>
+                                    </button>
+                                </div>
+
+                                <div class="collapse collapse-styled" id="b">
+
+                                    <button name="annee" type="submit" href="/annee" class="collapse-item btn btn-light mb-2 btn-lg btn-block" value="3" id ="bouton">
+                                        3ème année
+                                        <i aria-hidden="true"></i>
+                                    </button>
+                                </div>
+
+                                <div class="collapse collapse-styled" id="b">
+                                    <button name="annee" type="submit" href="/annee" class="collapse-item btn btn-light mb-2 btn-lg btn-block" value="4" id ="bouton">
+                                        4ème année
+                                        <i aria-hidden="true"></i>
+                                    </button>
+                                </div>
+
+                                <div class="collapse collapse-styled" id="b">
+                                    <button name="annee" type="submit" href="/annee" class="collapse-item btn btn-light mb-2 btn-lg btn-block" value="5" id ="bouton">
+                                        5ème année
+                                        <i aria-hidden="true"></i>
+                                    </button>
+                                </div>
                             </a>
+                        </form>
 
-                            <div class="collapse collapse-styled" id="a">
-                                <a ng-click="linkClicked(2)" ng-class="{'current': activeLinks[2]}"
-                                    href="#/session/assign" class="collapse-item">
-                                    Liste complète
-                                    <i aria-hidden="true"></i>
+                        <form action="/promo" method="POST" enctype="multipart/form-data">
+                            <a class="ng-class= scroller">
+                                <a data-toggle="collapse" data-target="#c" aria-expanded="false" aria-controls="3" class="collapse-item" style="margin-bottom:  12px;">
+                                    Par promotion<i aria-hidden="true"></i>
                                 </a>
-                            </div>
-                        </a>
-                        <a ng-click="linkClicked(5)" ng-class="{'current': activeLinks[5]}">
 
-                            <a data-toggle="collapse" data-target="#b" aria-expanded="false" aria-controls="2"
-                                class="collapse-item">
-                                Par année<i aria-hidden="true"></i>
+                                <div class="collapse collapse-styled" id="c">
+                                    <button name="promo" type="submit" href="/promo" class="collapse-item btn btn-light mb-2 btn-lg btn-block" value="CIR1" id ="bouton">
+                                        CIR1
+                                        <i aria-hidden="true"></i>
+                                    </button>
+                                </div>
+
+                                <div class="collapse collapse-styled" id="c">
+                                    <button name="promo" type="submit" href="/promo" class="collapse-item btn btn-light mb-2 btn-lg btn-block" value="CNB1" id ="bouton">
+                                        CNB1
+                                        <i aria-hidden="true"></i>
+                                    </button>
+                                </div>
+
+                                <div class="collapse collapse-styled" id="c">
+                                    <button name="promo" type="submit" href="/promo" class="collapse-item btn btn-light mb-2 btn-lg btn-block" value="CPG1" id ="bouton">
+                                        CPG1
+                                        <i aria-hidden="true"></i>
+                                    </button>
+                                </div>
+
+                                <div class="collapse collapse-styled" id="c">
+                                    <button name="promo" type="submit" href="/promo" class="collapse-item btn btn-light mb-2 btn-lg btn-block" value="CIR2" id ="bouton">
+                                        CIR2
+                                        <i aria-hidden="true"></i>
+                                    </button>
+                                </div>
+
+                                <div class="collapse collapse-styled" id="c">
+                                    <button name="promo" type="submit" href="/promo" class="collapse-item btn btn-light mb-2 btn-lg btn-block" value="CNB2" id ="bouton">
+                                        CNB2
+                                        <i aria-hidden="true"></i>
+                                    </button>
+                                </div>
+
+                                <div class="collapse collapse-styled" id="c">
+                                    <button name="promo" type="submit" href="/promo" class="collapse-item btn btn-light mb-2 btn-lg btn-block" value="CPG2" id ="bouton">
+                                        CPG2
+                                        <i aria-hidden="true"></i>
+                                    </button>
+                                </div>
+
+                                <div class="collapse collapse-styled" id="c">
+                                    <button name="promo" type="submit" href="/promo" class="collapse-item btn btn-light mb-2 btn-lg btn-block" value="CIR3" id ="bouton">
+                                        CIR3
+                                        <i aria-hidden="true"></i>
+                                    </button>
+                                </div>
+
+                                <div class="collapse collapse-styled" id="c">
+                                    <button name="promo" type="submit" href="/promo" class="collapse-item btn btn-light mb-2 btn-lg btn-block" value="CNB3" id ="bouton">
+                                        CNB3
+                                        <i aria-hidden="true"></i>
+                                    </button>
+                                </div>
+
+                                <div class="collapse collapse-styled" id="c">
+                                    <button name="promo" type="submit" href="/promo" class="collapse-item btn btn-light mb-2 btn-lg btn-block" value="CPG3" id ="bouton">
+                                        CPG3
+                                        <i aria-hidden="true"></i>
+                                    </button>
+                                </div>
+
+                                <div class="collapse collapse-styled" id="c">
+                                    <button name="promo" type="submit" href="/promo" class="collapse-item btn btn-light mb-2 btn-lg btn-block" value="M1" id ="bouton">
+                                        M1
+                                        <i aria-hidden="true"></i>
+                                    </button>
+                                </div>
+
+                                <div class="collapse collapse-styled" id="c">
+                                    <button name="promo" type="submit" href="/promo" class="collapse-item btn btn-light mb-2 btn-lg btn-block" value="M2" id ="bouton">
+                                        M2
+                                        <i aria-hidden="true"></i>
+                                    </button>
+                                </div>
                             </a>
-
-                            <div class="collapse collapse-styled" id="b">
-                                <a ng-click="linkClicked(1)" ng-class="{'current': activeLinks[1]}"
-                                    href="#/session/assign" class="collapse-item">
-                                    1ère année
-                                    <i aria-hidden="true"></i>
-                                </a>
-                            </div>
-                            <div class="collapse collapse-styled" id="b">
-
-                                <a ng-click="linkClicked(2)" ng-class="{'current': activeLinks[2]}" href="/ajouter"
-                                    class="collapse-item">
-                                    2ème année
-                                    <i aria-hidden="true"></i>
-                                </a>
-                            </div>
-                            <div class="collapse collapse-styled" id="b">
-
-                                <a ng-click="linkClicked(3)" ng-class="{'current': activeLinks[3]}" href="/ajouter"
-                                    class="collapse-item">
-                                    3ème année
-                                    <i aria-hidden="true"></i>
-                                </a>
-                            </div>
-                            <div class="collapse collapse-styled" id="b">
-
-                                <a ng-click="linkClicked(4)" ng-class="{'current': activeLinks[4]}" href="/ajouter"
-                                    class="collapse-item">
-                                    4ème année
-                                    <i aria-hidden="true"></i>
-                                </a>
-                            </div>
-                            <div class="collapse collapse-styled" id="b">
-
-                                <a ng-click="linkClicked(5)" ng-class="{'current': activeLinks[5]}" href="/ajouter"
-                                    class="collapse-item">
-                                    5ème année
-                                    <i aria-hidden="true"></i>
-                                </a>
-                            </div>
-
-                        </a>
-                        <a ng-click="linkClicked(11)" ng-class="{'current': activeLinks[11]} "
-                            class="ng-class= scroller">
-
-                            <a data-toggle="collapse" data-target="#c" aria-expanded="false" aria-controls="3"
-                                class="collapse-item" style="margin-bottom:  12px;">
-                                Par promo<i aria-hidden="true"></i>
-                            </a>
-
-                            <div class="collapse collapse-styled" id="c">
-                                <a ng-click="linkClicked(1)" ng-class="{'current': activeLinks[1]}"
-                                    href="#/session/assign" class="collapse-item">
-                                    CIR1
-                                    <i aria-hidden="true"></i>
-                                </a>
-                            </div>
-                            <div class="collapse collapse-styled" id="c">
-
-                                <a ng-click="linkClicked(2)" ng-class="{'current': activeLinks[2]}" href="/ajouter"
-                                    class="collapse-item">
-                                    CNB1
-                                    <i aria-hidden="true"></i>
-                                </a>
-                            </div>
-                            <div class="collapse collapse-styled" id="c">
-
-                                <a ng-click="linkClicked(3)" ng-class="{'current': activeLinks[3]}" href="/ajouter"
-                                    class="collapse-item">
-                                    CPG1
-                                    <i aria-hidden="true"></i>
-                                </a>
-                            </div>
-
-
-                            <div class="collapse collapse-styled" id="c">
-                                <a ng-click="linkClicked(4)" ng-class="{'current': activeLinks[4]}"
-                                    href="#/session/assign" class="collapse-item">
-                                    CIR2
-                                    <i aria-hidden="true"></i>
-                                </a>
-                            </div>
-                            <div class="collapse collapse-styled" id="c">
-
-                                <a ng-click="linkClicked(5)" ng-class="{'current': activeLinks[5]}" href="/ajouter"
-                                    class="collapse-item">
-                                    CNB2
-                                    <i aria-hidden="true"></i>
-                                </a>
-                            </div>
-                            <div class="collapse collapse-styled" id="c">
-
-                                <a ng-click="linkClicked(6)" ng-class="{'current': activeLinks[6]}" href="/ajouter"
-                                    class="collapse-item">
-                                    CPG2
-                                    <i aria-hidden="true"></i>
-                                </a>
-                            </div>
-
-
-                            <div class="collapse collapse-styled" id="c">
-                                <a ng-click="linkClicked(7)" ng-class="{'current': activeLinks[7]}"
-                                    href="#/session/assign" class="collapse-item">
-                                    CIR3
-                                    <i aria-hidden="true"></i>
-                                </a>
-                            </div>
-                            <div class="collapse collapse-styled" id="c">
-
-                                <a ng-click="linkClicked(8)" ng-class="{'current': activeLinks[8]}" href="/ajouter"
-                                    class="collapse-item">
-                                    CNB3
-                                    <i aria-hidden="true"></i>
-                                </a>
-                            </div>
-                            <div class="collapse collapse-styled" id="c">
-
-                                <a ng-click="linkClicked(9)" ng-class="{'current': activeLinks[9]}" href="/ajouter"
-                                    class="collapse-item">
-                                    CPG3
-                                    <i aria-hidden="true"></i>
-                                </a>
-                            </div>
-                            <div class="collapse collapse-styled" id="c">
-
-                                <a ng-click="linkClicked(10)" ng-class="{'current': activeLinks[10]}" href="/ajouter"
-                                    class="collapse-item">
-                                    M1
-                                    <i aria-hidden="true"></i>
-                                </a>
-                            </div>
-                            <div class="collapse collapse-styled" id="c">
-
-                                <a ng-click="linkClicked(11)" ng-class="{'current': activeLinks[11]}" href="/ajouter"
-                                    class="collapse-item">
-                                    M2
-                                    <i aria-hidden="true"></i>
-                                </a>
-                            </div>
-
-
-                        </a>
-
+                        </form>
                     </ul>
                 </div>
             </li>
 
             <li class="nav-item active">
                 <a class="nav-link" href="/ajouter">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Ajouter Etudiant</span></a>
+                    <i class="fas fa-fw fa-plus"></i>
+                    <span>Ajouter Etudiant</span>
+                </a>
             </li>
 
             <!-- Divider -->
@@ -245,6 +211,7 @@
             <div class="sidebar-heading">
                 Addons
             </div>
+
             <!-- Nav Item - Charts -->
             <li class="nav-item">
                 <a class="nav-link" href="#">
@@ -259,8 +226,9 @@
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-
+            <nav class="navbar navbar-expand navbar-light"> <img src="{{ url_for('static', filename= 'img/logo.PNG') }}" alt="Reconnaissance-Faciale" style="width: 100%"></nav>
         </ul>
+
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -280,7 +248,7 @@
                     </form>
 
                     <!-- Topbar Navbar -->
-                    <nav class="navbar navbar-expand navbar-light"> <img src="../static/img/logo.PNG" alt="Reconnaissance-Faciale" style="width: 40%"></nav>
+                    <nav class="navbar navbar-expand navbar-light"> <img src="{{ url_for('static', filename= 'img/JUNIA-ISEN.jpg') }}" alt="Reconnaissance-Faciale" style="width: 40%"></nav>
                     <ul class="navbar-nav ml-auto">
                        
                         
@@ -292,7 +260,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Administrateur</span>
-                                <img class="img-profile rounded-circle" src="../static/img/administrator_logo.png">
+                                <img class="img-profile rounded-circle" src="{{ url_for('static', filename= 'img/administrator_logo.png') }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -328,7 +296,7 @@
                                             <div class="text-center">
                                                 <h1 class="h4 text-gray-900 mb-4">Ajouter un étudiant :</h1>
                                             </div>
-                                            <form class="user">
+                                            <form action="/validation" method="POST" enctype="multipart/form-data" class="user">
                                                 <div class="form-group row">
                                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                                         <input type="text" class="form-control form-control-user" name ="prenom" id="exampleFirstName"
@@ -349,7 +317,7 @@
                                                         <option value="CNB3">CNB3</option>
                                                         <option value="CPG1">CPG1</option>
                                                         <option value="CPG2">CPG2</option>
-                                                        <option value="CSI3">CSI3</option>
+                                                        <option value="CPG3">CPG3</option>
                                                        <option value="M1">M1</option>
                                                        <option value="M2">M2</option>
                                                    </select>
@@ -362,11 +330,14 @@
                                                         <input type="file" id="avatar" name="photo1" accept="image/png, image/jpeg" required>
                                                         <input type="file" id="avatar" name="photo2" accept="image/png, image/jpeg" required>
                                                         <input type="file" id="avatar" name="photo3" accept="image/png, image/jpeg" required>
+                                                        <input type="file" id="avatar" name="photo4" accept="image/png, image/jpeg" required>
+                                                        <input type="file" id="avatar" name="photo5" accept="image/png, image/jpeg" required>
+                                                        <input type="file" id="avatar" name="photo6" accept="image/png, image/jpeg" required>
+                                                        <input type="file" id="avatar" name="photo7" accept="image/png, image/jpeg" required>
                                                    </div>
                                                 </div>
                                                 <input type="submit" class="btn btn-primary btn-user btn-block">
                                                 </input>
-                                                
                                             </form>
                                         </div>
                                     </div>

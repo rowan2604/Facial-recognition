@@ -48,13 +48,13 @@
                 Interface
             </div>
             <!-- Nav Item - Tables -->
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/index">
-                    <i class="fas fa-fw fa-table"></i>
+                    <i class="fas fa-fw fa-"></i>
                     <span>Liste Etudiant</span></a>
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item ">
+            <li class="nav-item active">
                 <a class="nav-link collapsed" href="/index" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-table"></i>
@@ -282,11 +282,45 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">{% block title %} Liste des étudiants en {{ promo[0] }} {% endblock %}</h1>
+
                     <!-- DataTales Example -->
-                    {% block content %}
-                        <h1 class="h3 mb-2 text-gray-800">L'étudiant {{validation[0]}} {{validation[1]}} de la Promo {{validation[2]}} a bien été ajouté</h1>
-                    {% endblock %}
-                    <a href="/index">Retour Accueil</a>
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Nom</th>
+                                            <th>Prénom</th>
+                                            <th>Promotion</th>
+                                            <th>Présence</th>
+                                        </tr>
+                                    </thead>
+                                    {% block content %}
+                                    <tbody>
+                                        {% for post in posts %}
+                                        <tr>
+                                            <td>{{ post[1] }}</td>
+                                            <td>{{ post[2] }}</td>
+                                            <td>{{ post[3] }}</td>
+                                            {% if post[4] == 1 %}
+                                            <td class="green" style="background-color: green; font-size: 0px;">{{ post[4] }}</td>
+                                            {% else %}
+                                            <td class="red" style="background-color: red; font-size: 0px;">{{ post[4] }}</td>
+                                            {% endif %}
+                                        </tr>
+                                        {% endfor %}
+
+                                    </tbody>
+                                    {% endblock %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
                 <!-- /.container-fluid -->
 
             </div>
