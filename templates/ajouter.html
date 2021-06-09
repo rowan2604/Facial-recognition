@@ -37,7 +37,9 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/index">
-                <div class="sidebar-brand-text mx-3">Administration</div>
+                <div class="sidebar-brand-text mx-3">
+                    <img src="{{ url_for('static', filename= 'img/logo.PNG') }}" alt="Reconnaissance-Faciale" style="width : 100%">
+                </div>
             </a>
 
             <!-- Divider -->
@@ -204,6 +206,13 @@
                 </a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link" href="/supprimer">
+                    <i class="fas fa-fw fa-minus"></i>
+                    <span>Supprimer Etudiant</span>
+                </a>
+            </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -226,7 +235,6 @@
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-            <nav class="navbar navbar-expand navbar-light"> <img src="{{ url_for('static', filename= 'img/logo.PNG') }}" alt="Reconnaissance-Faciale" style="width: 100%; margin-top :150%"></nav>
         </ul>
 
         <!-- End of Sidebar -->
@@ -324,17 +332,29 @@
                                                 </div>
                                                 <br class="row">
                                                     <div class="col-25">
-                                                       <label for="promo" style="font-size:30px;">Photos :</label>
+                                                        <label for="promo" style="font-size:30px;">Photos :</label>
+                                                        <p for="promo" style="font-size:15px;">Les images doivent faire moins de 50000 octets : 
+                                                            <a href="https://compressjpeg.com/fr/" onclick="window.open(this.href); return false;">Compresser</a>
+                                                        </p>
                                                    </div>
                                                    <div class="col-75">
-                                                        <input type="file" id="avatar" name="photo1" accept="image/png, image/jpeg" required>
-                                                        <input type="file" id="avatar" name="photo2" accept="image/png, image/jpeg" required>
-                                                        <input type="file" id="avatar" name="photo3" accept="image/png, image/jpeg" required>
-                                                        <input type="file" id="avatar" name="photo4" accept="image/png, image/jpeg" required>
-                                                        <input type="file" id="avatar" name="photo5" accept="image/png, image/jpeg" required>
-                                                        <input type="file" id="avatar" name="photo6" accept="image/png, image/jpeg" required>
-                                                        <input type="file" id="avatar" name="photo7" accept="image/png, image/jpeg" required>
+                                                        <input type="file" id="photo" name="photo1" accept="image/png, image/jpeg" required>
+                                                        <input type="file" id="photo" name="photo2" accept="image/png, image/jpeg" required>
+                                                        <input type="file" id="photo" name="photo3" accept="image/png, image/jpeg" required>
+                                                        <input type="file" id="photo" name="photo4" accept="image/png, image/jpeg" required>
+                                                        <input type="file" id="photo" name="photo5" accept="image/png, image/jpeg" required>
+                                                        <input type="file" id="photo" name="photo6" accept="image/png, image/jpeg" required>
+                                                        <input type="file" id="photo" name="photo7" accept="image/png, image/jpeg" required>
                                                    </div>
+                                                   <script> 
+                                                        var uploadField = document.getElementById("photo");
+                                                        uploadField.onchange = function() {
+                                                            if(this.files[0].size > 50000){
+                                                                alert("Le fichier que vous voulez ajouter est trop lourd ! \nIl doit faire moins de 50000 octets");
+                                                                this.value = "";
+                                                            };
+                                                        };
+                                                    </script> 
                                                 </div>
                                                 <input type="submit" class="btn btn-primary btn-user btn-block">
                                                 </input>
@@ -399,6 +419,9 @@
 
     <!-- Page level custom scripts -->
     <script src="{{ url_for('static', filename= 'js/demo/datatables-demo.js') }}"></script>
+
+    <script src="{{ url_for('static', filename= 'js/ajouter.js') }}"></script>
+    
 
 </body>
 

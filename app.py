@@ -10,6 +10,8 @@ bcrypt = Bcrypt(app)
 app.secret_key = 'SECRET_KEY'
 app.permanent_session_lifetime = timedelta(minutes = 300)
 
+
+
 def lancer():
     stream = open("AddToBDD.py")
     lu = stream.read()
@@ -95,6 +97,13 @@ def ajouterEtRetour():
             blobFile5 = pic5.read()
             blobFile6 = pic6.read()
             blobFile7 = pic7.read()
+            cur.execute("SELECT * FROM etudiant WHERE Nom LIKE '" + nom + "%' AND Prenom LIKE '" + prenom + "%'")
+            long = len(cur.fetchall())
+            print(len(cur.fetchall()))
+            if long > 0:
+                nom = nom + str(long)
+                prenom = prenom + str(long)
+             
             value = (nom, prenom, promo, 0, blobFile1, blobFile2, blobFile3, blobFile4, blobFile5, blobFile6, blobFile7)
             cur.execute(sql, value)
             conn.commit()
@@ -216,3 +225,43 @@ def graphes():
 
     else:
         return redirect('/')  
+
+@app.route('/supprimer')
+def pageSupprimer():
+    if(request.remote_addr in session ):
+        return render_template('supprimer.html')
+    else:
+        return redirect('/')
+
+@app.route('/validSupr', methods=['POST'])
+def supprimer():
+    if(request.remote_addr in session ):
+        try :
+            nom = request.form['nom']
+            prenom = request.form['prenom']
+            promo = request.form['promo']
+            print(nom)
+            print(prenom)
+            print(promo)
+            conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
+            conn.text_factory = str
+            cur = conn.cursor()
+            print("Connexion reussie à SQLite")
+            cur.execute("SELECT id FROM etudiant WHERE Nom = '" + nom + "' AND Prenom = '" + prenom + "' AND Promo = '" + promo + "'")
+            id = cur.fetchone()
+            print(id[0])
+            idstr = str(id[0])
+            cur.execute("DELETE FROM etudiant WHERE id = '" + idstr + "'")
+            conn.commit()
+            print("Fichier supprimé avec succes")
+            cur.close()
+            conn.close()
+            print("Connexion SQLite est fermee")
+
+        except mysql.connector.Error as error:
+            print("Erreur lors de l'insertion", error)
+
+        return render_template('validSupr.html')
+
+    else:
+        return redirect('/')
