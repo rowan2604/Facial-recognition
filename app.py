@@ -1,5 +1,5 @@
-from flask import Flask, render_template, request, redirect
-#from datetime import datetime, timedelta
+from flask import Flask, render_template, request, session, redirect
+from datetime import datetime, timedelta
 import mysql.connector
 from flask_bcrypt import Bcrypt
 from PIL import Image
@@ -7,15 +7,13 @@ import math
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
-#app.secret_key = 'SECRET_KEY'
-#app.permanent_session_lifetime = timedelta(minutes = 300)
-
-session={"Identifiant":None}
+app.secret_key = 'SECRET_KEY'
+app.permanent_session_lifetime = timedelta(minutes = 300)
 
 
 @app.route('/')
 def connexion():
-    if (session["Identifiant"]!=None ):
+    if (request.remote_addr in session):
         return redirect('/index')
     else:
         return render_template('login.html')
@@ -33,10 +31,7 @@ def auth():
     conn.close()
     if BDDmdp != None and bcrypt.check_password_hash(BDDmdp[0], mdp):
         print("IF")
-        session["Identifiant"] = identifiant
-       #conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
-       #cur = conn.cursor()
-       #cur.execute("UPDATE connexion set Connect=1 WHERE Identifiant='"+session[request.remote_addr]+ "'")
+        session[request.remote_addr] = datetime.now()
         return redirect('/index')
     else:
         print("ELSE")
@@ -44,15 +39,12 @@ def auth():
 
 @app.route('/deconnexion')
 def deco():
-    #conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
-    #cur = conn.cursor()
-    #cur.execute("UPDATE connexion set Connect=0 WHERE Identifiant='"+session[request.remote_addr]+ "'")
-    session["Identifiant"]=None
+    session.pop(request.remote_addr, None)
     return redirect('/')
 
 @app.route('/index')
 def index():
-    if( session["Identifiant"]!=None ):
+    if(request.remote_addr in session ):
         conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
         conn.text_factory = str
         cur = conn.cursor()
@@ -70,14 +62,14 @@ def index():
 
 @app.route('/ajouter')
 def pageAjouter():
-    if(session["Identifiant"]!=None  ):
+    if(request.remote_addr in session ):
         return render_template('ajouter.html')
     else:
         return redirect('/')
 
 @app.route('/validation', methods=['POST'])
 def ajouterEtRetour():
-    if(session["Identifiant"]!=None  ):
+    if(request.remote_addr in session ):
         try :
             nom = request.form['nom']
             prenom = request.form['prenom']
@@ -156,7 +148,7 @@ def ajouterIdentifiant():
 
 @app.route('/annee', methods=['POST'])
 def annee():
-    if(session["Identifiant"]!=None ):
+    if(request.remote_addr in session ):
         try:
             annee = request.form['annee']
             annees = []
@@ -185,7 +177,7 @@ def annee():
 @app.route('/promo', methods=['POST'])
 def promo():
     try :
-        if(session["Identifiant"]!=None  ):
+        if(request.remote_addr in session ):
             promo = request.form['promo']
             promos = []
             promos.append(promo)
@@ -205,7 +197,7 @@ def promo():
 
 @app.route('/graphes')
 def graphes():
-    if(session["Identifiant"]!=None  ):
+    if(request.remote_addr in session ):
         conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
         conn.text_factory = str
         cur = conn.cursor()
@@ -236,14 +228,14 @@ def graphes():
 
 @app.route('/supprimer')
 def pageSupprimer():
-    if (session["Identifiant"]!=None ) :
+    if (request.remote_addr in session) :
         return render_template('supprimer.html')
     else:
         return redirect('/')
 
 @app.route('/validSupr', methods=['POST'])
 def supprimer():
-    if (session["Identifiant"]!=None ) :
+    if (request.remote_addr in session) :
         validations=[]
         try :
             nom = request.form['nom']
