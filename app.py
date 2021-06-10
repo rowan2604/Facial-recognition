@@ -8,7 +8,7 @@ import math
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
 app.secret_key = 'SECRET_KEY'
-app.permanent_session_lifetime = timedelta(minutes = 300)
+app.permanent_session_lifetime = timedelta(minutes = 30)
 
 
 
@@ -19,7 +19,7 @@ def lancer():
 
 @app.route('/')
 def connexion():
-    if request.remote_addr in session:
+    if (request.remote_addr in session):
         return redirect('/index')
     else:
         return render_template('login.html')
@@ -66,14 +66,14 @@ def index():
 
 @app.route('/ajouter')
 def pageAjouter():
-    if(request.remote_addr in session ):
+    if request.remote_addr in session :
         return render_template('ajouter.html')
     else:
         return redirect('/')
 
 @app.route('/validation', methods=['POST'])
 def ajouterEtRetour():
-    if(request.remote_addr in session ):
+    if request.remote_addr in session :
         try :
             nom = request.form['nom']
             prenom = request.form['prenom']
@@ -154,7 +154,7 @@ def ajouterIdentifiant():
 @app.route('/annee', methods=['POST'])
 def annee():
     try :
-        if(request.remote_addr in session ):
+        if request.remote_addr in session :
             annee = request.form['annee']
             annees = []
             annees.append(annee)
@@ -182,7 +182,7 @@ def annee():
 @app.route('/promo', methods=['POST'])
 def promo():
     try :
-        if(request.remote_addr in session ):
+        if request.remote_addr in session :
             promo = request.form['promo']
             promos = []
             promos.append(promo)
@@ -202,7 +202,7 @@ def promo():
 
 @app.route('/graphes')
 def graphes():
-    if(request.remote_addr in session ):
+    if request.remote_addr in session :
         conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
         conn.text_factory = str
         cur = conn.cursor()
@@ -228,14 +228,14 @@ def graphes():
 
 @app.route('/supprimer')
 def pageSupprimer():
-    if(request.remote_addr in session ):
+    if request.remote_addr in session :
         return render_template('supprimer.html')
     else:
         return redirect('/')
 
 @app.route('/validSupr', methods=['POST'])
 def supprimer():
-    if(request.remote_addr in session ):
+    if request.remote_addr in session :
         try :
             nom = request.form['nom']
             prenom = request.form['prenom']
