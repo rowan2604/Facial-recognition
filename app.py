@@ -11,6 +11,8 @@ app.secret_key = 'SECRET_KEY'
 app.permanent_session_lifetime = timedelta(minutes = 300)
 
 
+#si on veut en local on change  request.headers.get("X-Forwarded-For") par request.remote_addr
+
 @app.route('/')
 def connexion():
     remote_addr = request.headers.get("X-Forwarded-For")
@@ -36,7 +38,7 @@ def auth():
     conn.close()
     if BDDmdp != None and bcrypt.check_password_hash(BDDmdp[0], mdp):
         print("IF")
-        session[request.headers.get("X-Forwarded-For")] = datetime.now()
+        session[request.headers.get("X-Forwarded-For")] = identifiant
         return redirect('/index')
     else:
         print("ELSE")
@@ -280,3 +282,39 @@ def supprimer():
 
     else:
         return redirect('/') 
+
+@app.route('/settings')
+def settings():
+    if(request.headers.get("X-Forwarded-For")  in session):
+        return render_template('settings.html')
+    else:
+        return redirect('/')
+
+@app.route('/newMDP', methods=['POST'])
+def newMDP():
+    if(request.headers.get("X-Forwarded-For") in session):
+        try:
+            identifiant = request.form['identifiant']
+            if(session[request.remote_addr] == identifiant)
+                ancienMDP = request.form['ancienMDP']
+                nouveauMDP = request.form['nouveauMDP']
+                conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
+                conn.text_factory = str
+                cur = conn.cursor()
+                print("Connexion reussie à SQLite")
+                cur.execute("SELECT password FROM connexion WHERE identifiant = '" + identifiant + "'")
+                password = cur.fetchone()
+                if(bcrypt.check_password_hash(password[0], ancienMDP)):
+                    cur.execute("UPDATE connexion SET password = '" + bcrypt.generate_password_hash(nouveauMDP) + "' WHERE identifiant = '" + identifiant + "'")
+                    conn.commit()
+                else:
+                    return redirect('/settings')
+                cur.close()
+                conn.close()
+                print("Connexion SQLite est fermee")
+                return redirect('/index')
+            return redirect('/settings')
+        except mysql.connector.Error as error:
+            print("Erreur lors de l'insertion", error)
+    else:
+        return redirect('/')
