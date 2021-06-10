@@ -10,6 +10,7 @@ app = Flask(__name__)
 bcrypt = Bcrypt(app)
 app.secret_key = os.environ['SECRET'] #sur heroku var
 #app.secret_key = 'SECRET_KEY' #en local
+app.permanent = True
 app.permanent_session_lifetime = timedelta(minutes = 30)
 
 def lancer():
