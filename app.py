@@ -8,7 +8,8 @@ import math
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
 app.secret_key = 'SECRET_KEY'
-app.permanent_session_lifetime = timedelta(minutes = 300)
+app.permanent_session_lifetime = timedelta(minutes = 30)
+os.environ['secrt_key']
 
 
 
@@ -19,7 +20,7 @@ def lancer():
 
 @app.route('/')
 def connexion():
-    if request.remote_addr in session:
+    if (request.remote_addr in session ):
         return redirect('/index')
     else:
         return render_template('login.html')
@@ -153,8 +154,8 @@ def ajouterIdentifiant():
 
 @app.route('/annee', methods=['POST'])
 def annee():
-    try :
-        if(request.remote_addr in session ):
+    if(request.remote_addr in session):
+        try:
             annee = request.form['annee']
             annees = []
             annees.append(annee)
@@ -181,8 +182,8 @@ def annee():
 
 @app.route('/promo', methods=['POST'])
 def promo():
-    try :
-        if(request.remote_addr in session ):
+    if(request.remote_addr in session ):
+        try:
             promo = request.form['promo']
             promos = []
             promos.append(promo)
