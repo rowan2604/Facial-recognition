@@ -213,12 +213,17 @@ def graphes():
         cur.close()
         conn.close()
         print("Connexion SQLite est fermee")
-        pctPre = round(presences/(presences + absences) * 100, 2)
-        pctAbs = round(absences/(presences + absences) * 100, 2)
-        pct = []
-        pct.append(pctPre)
-        pct.append(pctAbs)
-        return render_template('graphes.html', posts = posts, presences = presences, absences = absences, pct = pct)
+        try:
+            pctPre = round(presences/(presences + absences) * 100, 2)
+            pctAbs = round(absences/(presences + absences) * 100, 2)
+            pct = []
+            pct.append(pctPre)
+            pct.append(pctAbs)
+            return render_template('graphes.html', posts = posts, presences = presences, absences = absences, pct = pct)
+        except:
+            print("error")
+            return redirect('/index') 
+
 
     else:
         return redirect('/') 
@@ -263,7 +268,7 @@ def supprimer():
                 cur.close()
                 conn.close()
                 print("Connexion SQLite est fermee")
-                return redirect('/supprimer')
+                return render_template('IncorrectSuppr.html')
 
         except mysql.connector.Error as error:
             print("Erreur lors de l'insertion", error)

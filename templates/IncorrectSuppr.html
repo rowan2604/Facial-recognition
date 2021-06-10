@@ -197,14 +197,14 @@
                 </div>
             </li>
 
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/ajouter">
                     <i class="fas fa-fw fa-plus"></i>
                     <span>Ajouter Etudiant</span>
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="/supprimer">
                     <i class="fas fa-fw fa-minus"></i>
                     <span>Supprimer Etudiant</span>
@@ -291,11 +291,11 @@
                 <div class="container-fluid">
 
                     <!-- DataTales Example -->
-                    {% block content %}
-                        <h1 class="h3 mb-2 text-gray-800">L'étudiant {{validation[0]}} {{validation[1]}} de la Promo {{validation[2]}} a bien été ajouté</h1>
-                    {% endblock %}
+      
+                        <h1 class="h3 mb-2 text-gray-800">L'étudiant que vous essayé de supprimer est introuvable</h1>
+                    
                     <br>
-                    <a href="/index">Retour Accueil</a>
+                     <a href="/index">Retour Accueil</a>
                     <br>
                     <a href="/ajouter">Retour Ajouter</a>
                 <!-- /.container-fluid -->
