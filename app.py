@@ -13,6 +13,10 @@ app.permanent_session_lifetime = timedelta(minutes = 300)
 
 @app.route('/')
 def connexion():
+    remote_addr = request.headers.get("X-Forwarded-For")
+    print("C'EST LA")
+    print(remote_addr)
+    print(request.remote_addr)
     if (request.remote_addr in session):
         return redirect('/index')
     else:
