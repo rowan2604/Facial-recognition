@@ -1,29 +1,23 @@
-from flask import Flask, render_template, request, session, redirect
-from datetime import datetime, timedelta
+from flask import Flask, render_template, request, redirect
+#from datetime import datetime, timedelta
 import mysql.connector
 from flask_bcrypt import Bcrypt
 from PIL import Image
 import math
-import os
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
-#app.secret_key = os.environ['SECRET'] #sur heroku var
-app.secret_key = 'SECRET_KEY' #en local
-app.permanent_session_lifetime = timedelta(minutes = 30)
+#app.secret_key = 'SECRET_KEY'
+#app.permanent_session_lifetime = timedelta(minutes = 300)
 
-def lancer():
-    stream = open("AddToBDD.py")
-    lu = stream.read()
-    exec(lu)
+session={}
+
 
 @app.route('/')
 def connexion():
     if (request.remote_addr in session):
-        print(request.remote_addr)
         return redirect('/index')
     else:
-        print(request.remote_addr)
         return render_template('login.html')
 
 @app.route('/auth/', methods=['POST'])
@@ -38,21 +32,26 @@ def auth():
     cur.close()
     conn.close()
     if BDDmdp != None and bcrypt.check_password_hash(BDDmdp[0], mdp):
-        session[request.remote_addr] = datetime.now()
-        print(request.remote_addr)
+        print("IF")
+        session[request.remote_addr] = identifiant
+       #conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
+       #cur = conn.cursor()
+       #cur.execute("UPDATE connexion set Connect=1 WHERE Identifiant='"+session[request.remote_addr]+ "'")
         return redirect('/index')
     else:
+        print("ELSE")
         return redirect('/')
 
 @app.route('/deconnexion')
 def deco():
-    print(request.remote_addr)
-    session.pop(request.remote_addr, None)
+    #conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
+    #cur = conn.cursor()
+    #cur.execute("UPDATE connexion set Connect=0 WHERE Identifiant='"+session[request.remote_addr]+ "'")
+    del session[request.remote_addr]
     return redirect('/')
 
 @app.route('/index')
 def index():
-    print(request.remote_addr)
     if(request.remote_addr in session ):
         conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
         conn.text_factory = str
@@ -71,7 +70,6 @@ def index():
 
 @app.route('/ajouter')
 def pageAjouter():
-    print(request.remote_addr)
     if(request.remote_addr in session ):
         return render_template('ajouter.html')
     else:
@@ -79,7 +77,6 @@ def pageAjouter():
 
 @app.route('/validation', methods=['POST'])
 def ajouterEtRetour():
-    print(request.remote_addr)
     if(request.remote_addr in session ):
         try :
             nom = request.form['nom']
@@ -143,8 +140,8 @@ def ajouterIdentifiant():
         conn.text_factory = str
         cur = conn.cursor()
         print("Connexion reussie à SQLite")
-        sql = "INSERT INTO connexion (Identifiant, Password) VALUES (%s,%s)"
-        value = (identifiant, pw_hash)
+        sql = "INSERT INTO connexion (Identifiant, Password,Connect) VALUES (%s,%s,%s)"
+        value = (identifiant, pw_hash,0)
         cur.execute(sql, value)
         conn.commit()
         print("Fichier insere avec succes")
@@ -159,7 +156,6 @@ def ajouterIdentifiant():
 
 @app.route('/annee', methods=['POST'])
 def annee():
-    print(request.remote_addr)
     if(request.remote_addr in session ):
         try:
             annee = request.form['annee']
@@ -188,9 +184,8 @@ def annee():
 
 @app.route('/promo', methods=['POST'])
 def promo():
-    if(request.remote_addr in session ):
-        print(request.remote_addr)
-        try:
+    try :
+        if(request.remote_addr in session ):
             promo = request.form['promo']
             promos = []
             promos.append(promo)
@@ -201,14 +196,12 @@ def promo():
             cur.execute("SELECT * FROM Etudiant WHERE (Promo = '" + promo + "')")
             posts = cur.fetchall()
             return render_template('promo.html', posts = posts, promo = promos)
-        except mysql.connector.Error as error:
-            print("Erreur lors de l'insertion", error)
-    else:
-        return redirect('/')
 
+        else:
+            return redirect('/')
     
-    
-   
+    except mysql.connector.Error as error:
+        print("Erreur lors de l'insertion", error)
 
 @app.route('/graphes')
 def graphes():
