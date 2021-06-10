@@ -233,6 +233,7 @@ def pageSupprimer():
 @app.route('/validSupr', methods=['POST'])
 def supprimer():
     if (request.remote_addr in session) :
+        validations=[]
         try :
             nom = request.form['nom']
             prenom = request.form['prenom']
@@ -240,25 +241,34 @@ def supprimer():
             print(nom)
             print(prenom)
             print(promo)
+            validations.append(nom)
+            validations.append(prenom)
+            validations.append(promo)
             conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
             conn.text_factory = str
             cur = conn.cursor()
             print("Connexion reussie à SQLite")
             cur.execute("SELECT id FROM etudiant WHERE Nom = '" + nom + "' AND Prenom = '" + prenom + "' AND Promo = '" + promo + "'")
             id = cur.fetchone()
-            print(id[0])
-            idstr = str(id[0])
-            cur.execute("DELETE FROM etudiant WHERE id = '" + idstr + "'")
-            conn.commit()
-            print("Fichier supprimé avec succes")
-            cur.close()
-            conn.close()
-            print("Connexion SQLite est fermee")
+            if(id!=None):
+                print(id[0])
+                idstr = str(id[0])
+                cur.execute("DELETE FROM etudiant WHERE id = '" + idstr + "'")
+                conn.commit()
+                print("Fichier supprimé avec succes")
+                cur.close()
+                conn.close()
+                print("Connexion SQLite est fermee")
+            else:
+                cur.close()
+                conn.close()
+                print("Connexion SQLite est fermee")
+                return redirect('/supprimer')
 
         except mysql.connector.Error as error:
             print("Erreur lors de l'insertion", error)
 
-        return render_template('validSupr.html')
+        return render_template('validSupr.html',validations=validations)
 
     else:
         return redirect('/') 

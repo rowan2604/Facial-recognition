@@ -37,7 +37,9 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/index">
-                <div class="sidebar-brand-text mx-3">Administration</div>
+                <div class="sidebar-brand-text mx-3">
+                    <img src="{{ url_for('static', filename= 'img/logo.PNG') }}" alt="Reconnaissance-Faciale" style="width : 100%">
+                </div>
             </a>
 
             <!-- Divider -->
@@ -195,13 +197,14 @@
                 </div>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="/ajouter">
                     <i class="fas fa-fw fa-plus"></i>
                     <span>Ajouter Etudiant</span>
                 </a>
             </li>
-            <li class="nav-item active">
+
+            <li class="nav-item">
                 <a class="nav-link" href="/supprimer">
                     <i class="fas fa-fw fa-minus"></i>
                     <span>Supprimer Etudiant</span>
@@ -213,7 +216,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Resumé
+                Addons
             </div>
             <!-- Nav Item - Charts -->
             <li class="nav-item">
@@ -230,7 +233,6 @@
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-            <nav class="navbar navbar-expand navbar-light"> <img src="{{ url_for('static', filename= 'img/logo.PNG') }}" alt="Reconnaissance-Faciale" style="width: 100%; margin-top: 150%"></nav>
         </ul>
         <!-- End of Sidebar -->
 
@@ -292,7 +294,10 @@
                     {% block content %}
                         <h1 class="h3 mb-2 text-gray-800">L'étudiant {{validation[0]}} {{validation[1]}} de la Promo {{validation[2]}} a bien été ajouté</h1>
                     {% endblock %}
+                    <br>
                     <a href="/index">Retour Accueil</a>
+                    <br>
+                    <a href="/ajouter">Retour Ajouter</a>
                 <!-- /.container-fluid -->
 
             </div>

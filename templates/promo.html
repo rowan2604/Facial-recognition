@@ -37,7 +37,9 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/index">
-                <div class="sidebar-brand-text mx-3">Administration</div>
+                <div class="sidebar-brand-text mx-3">
+                    <img src="{{ url_for('static', filename= 'img/logo.PNG') }}" alt="Reconnaissance-Faciale" style="width : 100%">
+                </div>
             </a>
 
             <!-- Divider -->
@@ -50,7 +52,7 @@
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="/index">
-                    <i class="fas fa-fw fa-"></i>
+                    <i class="fas fa-fw fa-table"></i>
                     <span>Liste Etudiant</span></a>
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
@@ -202,6 +204,13 @@
                 </a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link" href="/supprimer">
+                    <i class="fas fa-fw fa-minus"></i>
+                    <span>Supprimer Etudiant</span>
+                </a>
+            </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -224,7 +233,6 @@
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-            <nav class="navbar navbar-expand navbar-light"> <img src="{{ url_for('static', filename= 'img/logo.PNG') }}" alt="Reconnaissance-Faciale" style="width: 100%; margin-top: 150%"></nav>
         </ul>
         <!-- End of Sidebar -->
 
