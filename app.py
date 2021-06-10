@@ -8,9 +8,8 @@ import os
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
-app.secret_key = os.environ['SECRET'] #sur heroku var
-#app.secret_key = 'SECRET_KEY' #en local
-app.permanent = True
+#app.secret_key = os.environ['SECRET'] #sur heroku var
+app.secret_key = 'SECRET_KEY' #en local
 app.permanent_session_lifetime = timedelta(minutes = 30)
 
 def lancer():
@@ -20,13 +19,17 @@ def lancer():
 
 @app.route('/')
 def connexion():
-    if (request.remote_addr in session):
+    ip=request.environ.get('HTTP_X_REAL_IP', request.remote_addr) 
+    if (ip in session):
+        print(request.remote_addr)
         return redirect('/index')
     else:
+        print(request.remote_addr)
         return render_template('login.html')
 
 @app.route('/auth/', methods=['POST'])
 def auth():
+    ip=request.environ.get('HTTP_X_REAL_IP', request.remote_addr) 
     identifiant = request.form['Identifiant']
     mdp = request.form['mdp']
     conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
@@ -37,19 +40,24 @@ def auth():
     cur.close()
     conn.close()
     if BDDmdp != None and bcrypt.check_password_hash(BDDmdp[0], mdp):
-        session[request.remote_addr] = datetime.now()
+        session[ip] = datetime.now()
+        print(request.remote_addr)
         return redirect('/index')
     else:
         return redirect('/')
 
 @app.route('/deconnexion')
 def deco():
-    session.pop(request.remote_addr, None)
+    ip=request.environ.get('HTTP_X_REAL_IP', request.remote_addr) 
+    print(request.remote_addr)
+    session.pop(ip.remote_addr, None)
     return redirect('/')
 
 @app.route('/index')
 def index():
-    if(request.remote_addr in session ):
+    ip=request.environ.get('HTTP_X_REAL_IP', request.remote_addr) 
+    print(ip)
+    if(ip in session ):
         conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
         conn.text_factory = str
         cur = conn.cursor()
@@ -67,14 +75,18 @@ def index():
 
 @app.route('/ajouter')
 def pageAjouter():
-    if(request.remote_addr in session ):
+    ip=request.environ.get('HTTP_X_REAL_IP', request.remote_addr) 
+    print(request.remote_addr)
+    if(ip in session ):
         return render_template('ajouter.html')
     else:
         return redirect('/')
 
 @app.route('/validation', methods=['POST'])
 def ajouterEtRetour():
-    if(request.remote_addr in session ):
+    ip=request.environ.get('HTTP_X_REAL_IP', request.remote_addr) 
+    print(request.remote_addr)
+    if(ip in session ):
         try :
             nom = request.form['nom']
             prenom = request.form['prenom']
@@ -153,7 +165,9 @@ def ajouterIdentifiant():
 
 @app.route('/annee', methods=['POST'])
 def annee():
-    if(request.remote_addr in session ):
+    ip=request.environ.get('HTTP_X_REAL_IP', request.remote_addr) 
+    print(ip)
+    if(ip in session ):
         try:
             annee = request.form['annee']
             annees = []
@@ -181,8 +195,10 @@ def annee():
 
 @app.route('/promo', methods=['POST'])
 def promo():
-    try :
-        if(request.remote_addr in session ):
+    ip=request.environ.get('HTTP_X_REAL_IP', request.remote_addr) 
+    if(ip in session ):
+        print(request.remote_addr)
+        try:
             promo = request.form['promo']
             promos = []
             promos.append(promo)
@@ -193,16 +209,15 @@ def promo():
             cur.execute("SELECT * FROM Etudiant WHERE (Promo = '" + promo + "')")
             posts = cur.fetchall()
             return render_template('promo.html', posts = posts, promo = promos)
-
-        else:
-            return redirect('/')
-    
-    except mysql.connector.Error as error:
-        print("Erreur lors de l'insertion", error)
+        except mysql.connector.Error as error:
+            print("Erreur lors de l'insertion", error)
+    else:
+        return redirect('/')
 
 @app.route('/graphes')
 def graphes():
-    if(request.remote_addr in session ):
+    ip=request.environ.get('HTTP_X_REAL_IP', request.remote_addr) 
+    if(ip in session ):
         conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
         conn.text_factory = str
         cur = conn.cursor()
@@ -233,14 +248,16 @@ def graphes():
 
 @app.route('/supprimer')
 def pageSupprimer():
-    if (request.remote_addr in session) :
+    ip=request.environ.get('HTTP_X_REAL_IP', request.remote_addr) 
+    if (ip in session) :
         return render_template('supprimer.html')
     else:
         return redirect('/')
 
 @app.route('/validSupr', methods=['POST'])
 def supprimer():
-    if (request.remote_addr in session) :
+    ip=request.environ.get('HTTP_X_REAL_IP', request.remote_addr) 
+    if (ip in session) :
         validations=[]
         try :
             nom = request.form['nom']
