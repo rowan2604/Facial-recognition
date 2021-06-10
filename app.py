@@ -8,7 +8,7 @@ import math
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
 app.secret_key = 'SECRET_KEY'
-app.permanent_session_lifetime = timedelta(minutes = 30)
+app.permanent_session_lifetime = timedelta(minutes = 300)
 
 def lancer():
     stream = open("AddToBDD.py")
@@ -17,7 +17,7 @@ def lancer():
 
 @app.route('/')
 def connexion():
-    if (request.remote_addr in session ):
+    if (request.remote_addr in session):
         return redirect('/index')
     else:
         return render_template('login.html')
@@ -64,14 +64,14 @@ def index():
 
 @app.route('/ajouter')
 def pageAjouter():
-    if (request.remote_addr in session) :
+    if(request.remote_addr in session ):
         return render_template('ajouter.html')
     else:
         return redirect('/')
 
 @app.route('/validation', methods=['POST'])
 def ajouterEtRetour():
-    if (request.remote_addr in session) :
+    if(request.remote_addr in session ):
         try :
             nom = request.form['nom']
             prenom = request.form['prenom']
@@ -101,7 +101,6 @@ def ajouterEtRetour():
             if long > 0:
                 nom = nom + str(long)
                 prenom = prenom + str(long)
-             
             value = (nom, prenom, promo, 0, blobFile1, blobFile2, blobFile3, blobFile4, blobFile5, blobFile6, blobFile7)
             cur.execute(sql, value)
             conn.commit()
@@ -151,7 +150,7 @@ def ajouterIdentifiant():
 
 @app.route('/annee', methods=['POST'])
 def annee():
-    if(request.remote_addr in session):
+    if(request.remote_addr in session ):
         try:
             annee = request.form['annee']
             annees = []
@@ -170,17 +169,17 @@ def annee():
                 cur.execute("SELECT * FROM Etudiant WHERE (Promo = 'CIR" + annee + "' OR Promo = 'CPG" + annee + "' OR Promo = 'CNB" + annee + "')")
             posts = cur.fetchall()
             return render_template('annee.html', posts = posts, annee = annees)
-
-        else:
-            return redirect('/')
+        except mysql.connector.Error as error:
+            print("Erreur lors de l'insertion", error)
+    else:
+        return redirect('/')
     
-    except mysql.connector.Error as error:
-        print("Erreur lors de l'insertion", error)
+    
 
 @app.route('/promo', methods=['POST'])
 def promo():
-    if(request.remote_addr in session ):
-        try:
+    try :
+        if(request.remote_addr in session ):
             promo = request.form['promo']
             promos = []
             promos.append(promo)
@@ -200,7 +199,7 @@ def promo():
 
 @app.route('/graphes')
 def graphes():
-    if (request.remote_addr in session) :
+    if(request.remote_addr in session ):
         conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
         conn.text_factory = str
         cur = conn.cursor()
@@ -222,7 +221,7 @@ def graphes():
         return render_template('graphes.html', posts = posts, presences = presences, absences = absences, pct = pct)
 
     else:
-        return redirect('/')  
+        return redirect('/') 
 
 @app.route('/supprimer')
 def pageSupprimer():
@@ -247,14 +246,20 @@ def supprimer():
             print("Connexion reussie à SQLite")
             cur.execute("SELECT id FROM etudiant WHERE Nom = '" + nom + "' AND Prenom = '" + prenom + "' AND Promo = '" + promo + "'")
             id = cur.fetchone()
-            print(id[0])
-            idstr = str(id[0])
-            cur.execute("DELETE FROM etudiant WHERE id = '" + idstr + "'")
-            conn.commit()
-            print("Fichier supprimé avec succes")
-            cur.close()
-            conn.close()
-            print("Connexion SQLite est fermee")
+            if(id!=None):
+                print(id[0])
+                idstr = str(id[0])
+                cur.execute("DELETE FROM etudiant WHERE id = '" + idstr + "'")
+                conn.commit()
+                print("Fichier supprimé avec succes")
+                cur.close()
+                conn.close()
+                print("Connexion SQLite est fermee")
+            else:
+                cur.close()
+                conn.close()
+                print("Connexion SQLite est fermee")
+                return redirect('/supprimer')
 
         except mysql.connector.Error as error:
             print("Erreur lors de l'insertion", error)
@@ -262,4 +267,4 @@ def supprimer():
         return render_template('validSupr.html')
 
     else:
-        return redirect('/')
+        return redirect('/') 
