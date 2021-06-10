@@ -10,12 +10,12 @@ bcrypt = Bcrypt(app)
 #app.secret_key = 'SECRET_KEY'
 #app.permanent_session_lifetime = timedelta(minutes = 300)
 
-session={}
+session={"Identifiant":None}
 
 
 @app.route('/')
 def connexion():
-    if (request.remote_addr in session):
+    if (session["Identifiant"]!=None ):
         return redirect('/index')
     else:
         return render_template('login.html')
@@ -33,7 +33,7 @@ def auth():
     conn.close()
     if BDDmdp != None and bcrypt.check_password_hash(BDDmdp[0], mdp):
         print("IF")
-        session[request.remote_addr] = identifiant
+        session["Identifiant"] = identifiant
        #conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
        #cur = conn.cursor()
        #cur.execute("UPDATE connexion set Connect=1 WHERE Identifiant='"+session[request.remote_addr]+ "'")
@@ -47,12 +47,12 @@ def deco():
     #conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
     #cur = conn.cursor()
     #cur.execute("UPDATE connexion set Connect=0 WHERE Identifiant='"+session[request.remote_addr]+ "'")
-    del session[request.remote_addr]
+    session["Identifiant"]=None
     return redirect('/')
 
 @app.route('/index')
 def index():
-    if(request.remote_addr in session ):
+    if( session["Identifiant"]!=None ):
         conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
         conn.text_factory = str
         cur = conn.cursor()
@@ -70,14 +70,14 @@ def index():
 
 @app.route('/ajouter')
 def pageAjouter():
-    if(request.remote_addr in session ):
+    if(session["Identifiant"]!=None  ):
         return render_template('ajouter.html')
     else:
         return redirect('/')
 
 @app.route('/validation', methods=['POST'])
 def ajouterEtRetour():
-    if(request.remote_addr in session ):
+    if(session["Identifiant"]!=None  ):
         try :
             nom = request.form['nom']
             prenom = request.form['prenom']
@@ -156,7 +156,7 @@ def ajouterIdentifiant():
 
 @app.route('/annee', methods=['POST'])
 def annee():
-    if(request.remote_addr in session ):
+    if(session["Identifiant"]!=None ):
         try:
             annee = request.form['annee']
             annees = []
@@ -185,7 +185,7 @@ def annee():
 @app.route('/promo', methods=['POST'])
 def promo():
     try :
-        if(request.remote_addr in session ):
+        if(session["Identifiant"]!=None  ):
             promo = request.form['promo']
             promos = []
             promos.append(promo)
@@ -205,7 +205,7 @@ def promo():
 
 @app.route('/graphes')
 def graphes():
-    if(request.remote_addr in session ):
+    if(session["Identifiant"]!=None  ):
         conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
         conn.text_factory = str
         cur = conn.cursor()
@@ -236,14 +236,14 @@ def graphes():
 
 @app.route('/supprimer')
 def pageSupprimer():
-    if (request.remote_addr in session) :
+    if (session["Identifiant"]!=None ) :
         return render_template('supprimer.html')
     else:
         return redirect('/')
 
 @app.route('/validSupr', methods=['POST'])
 def supprimer():
-    if (request.remote_addr in session) :
+    if (session["Identifiant"]!=None ) :
         validations=[]
         try :
             nom = request.form['nom']
