@@ -16,8 +16,9 @@ def connexion():
     remote_addr = request.headers.get("X-Forwarded-For")
     print("C'EST LA")
     print(remote_addr)
-    print(request.remote_addr)
-    if (request.remote_addr in session):
+    #print(request.environ['REMOTE_ADDR'])
+    print(request.headers.get("X-Forwarded-For"))
+    if (request.headers.get("X-Forwarded-For") in session):
         return redirect('/index')
     else:
         return render_template('login.html')
@@ -35,7 +36,7 @@ def auth():
     conn.close()
     if BDDmdp != None and bcrypt.check_password_hash(BDDmdp[0], mdp):
         print("IF")
-        session[request.remote_addr] = datetime.now()
+        session[request.headers.get("X-Forwarded-For")] = datetime.now()
         return redirect('/index')
     else:
         print("ELSE")
@@ -43,12 +44,12 @@ def auth():
 
 @app.route('/deconnexion')
 def deco():
-    session.pop(request.remote_addr, None)
+    session.pop(request.headers.get("X-Forwarded-For"), None)
     return redirect('/')
 
 @app.route('/index')
 def index():
-    if(request.remote_addr in session ):
+    if(request.headers.get("X-Forwarded-For") in session ):
         conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
         conn.text_factory = str
         cur = conn.cursor()
@@ -66,14 +67,14 @@ def index():
 
 @app.route('/ajouter')
 def pageAjouter():
-    if(request.remote_addr in session ):
+    if(request.headers.get("X-Forwarded-For") in session ):
         return render_template('ajouter.html')
     else:
         return redirect('/')
 
 @app.route('/validation', methods=['POST'])
 def ajouterEtRetour():
-    if(request.remote_addr in session ):
+    if(request.headers.get("X-Forwarded-For") in session ):
         try :
             nom = request.form['nom']
             prenom = request.form['prenom']
@@ -152,7 +153,7 @@ def ajouterIdentifiant():
 
 @app.route('/annee', methods=['POST'])
 def annee():
-    if(request.remote_addr in session ):
+    if(request.headers.get("X-Forwarded-For") in session ):
         try:
             annee = request.form['annee']
             annees = []
@@ -181,7 +182,7 @@ def annee():
 @app.route('/promo', methods=['POST'])
 def promo():
     try :
-        if(request.remote_addr in session ):
+        if(request.headers.get("X-Forwarded-For") in session ):
             promo = request.form['promo']
             promos = []
             promos.append(promo)
@@ -201,7 +202,7 @@ def promo():
 
 @app.route('/graphes')
 def graphes():
-    if(request.remote_addr in session ):
+    if(request.headers.get("X-Forwarded-For") in session ):
         conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
         conn.text_factory = str
         cur = conn.cursor()
@@ -232,14 +233,14 @@ def graphes():
 
 @app.route('/supprimer')
 def pageSupprimer():
-    if (request.remote_addr in session) :
+    if (request.headers.get("X-Forwarded-For") in session) :
         return render_template('supprimer.html')
     else:
         return redirect('/')
 
 @app.route('/validSupr', methods=['POST'])
 def supprimer():
-    if (request.remote_addr in session) :
+    if (request.headers.get("X-Forwarded-For") in session) :
         validations=[]
         try :
             nom = request.form['nom']
