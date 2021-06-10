@@ -9,9 +9,6 @@ app = Flask(__name__)
 bcrypt = Bcrypt(app)
 app.secret_key = 'SECRET_KEY'
 app.permanent_session_lifetime = timedelta(minutes = 30)
-os.environ['secrt_key']
-
-
 
 def lancer():
     stream = open("AddToBDD.py")
@@ -67,14 +64,14 @@ def index():
 
 @app.route('/ajouter')
 def pageAjouter():
-    if(request.remote_addr in session ):
+    if (request.remote_addr in session) :
         return render_template('ajouter.html')
     else:
         return redirect('/')
 
 @app.route('/validation', methods=['POST'])
 def ajouterEtRetour():
-    if(request.remote_addr in session ):
+    if (request.remote_addr in session) :
         try :
             nom = request.form['nom']
             prenom = request.form['prenom']
@@ -203,7 +200,7 @@ def promo():
 
 @app.route('/graphes')
 def graphes():
-    if(request.remote_addr in session ):
+    if (request.remote_addr in session) :
         conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
         conn.text_factory = str
         cur = conn.cursor()
@@ -229,14 +226,14 @@ def graphes():
 
 @app.route('/supprimer')
 def pageSupprimer():
-    if(request.remote_addr in session ):
+    if (request.remote_addr in session) :
         return render_template('supprimer.html')
     else:
         return redirect('/')
 
 @app.route('/validSupr', methods=['POST'])
 def supprimer():
-    if(request.remote_addr in session ):
+    if (request.remote_addr in session) :
         try :
             nom = request.form['nom']
             prenom = request.form['prenom']
