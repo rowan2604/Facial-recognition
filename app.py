@@ -292,10 +292,10 @@ def settings():
 
 @app.route('/newMDP', methods=['POST'])
 def newMDP():
-    if(request.headers.get("X-Forwarded-For") in session):
+    if(request.headers.get("X-Forwarded-For")  in session):
         try:
             identifiant = request.form['identifiant']
-            if(session[request.remote_addr] == identifiant)
+            if(session[request.remote_addr] == identifiant):
                 ancienMDP = request.form['ancienMDP']
                 nouveauMDP = request.form['nouveauMDP']
                 conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
