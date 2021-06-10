@@ -4,11 +4,11 @@ import mysql.connector
 from flask_bcrypt import Bcrypt
 from PIL import Image
 import math
+import os
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
-app.secret_key = 'SECRET_KEY'
-app.config['SECRET_KEY']='SECRET_KEY'
+app.secret_key = os.environ.get('SECRET')
 app.permanent_session_lifetime = timedelta(minutes = 30)
 
 def lancer():
