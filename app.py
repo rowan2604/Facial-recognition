@@ -306,7 +306,7 @@ def newMDP():
                 password = cur.fetchone()
                 print(password)
                 if(bcrypt.check_password_hash(password[0], ancienMDP)):
-                    cur.execute("UPDATE connexion SET password = '" + bcrypt.generate_password_hash(nouveauMDP) + "' WHERE identifiant = '" + identifiant + "'")
+                    cur.execute("UPDATE connexion SET password = '" + bcrypt.generate_password_hash(nouveauMDP) + "' WHERE Identifiant = '" + identifiant + "'")
                     conn.commit()
                 else:
                     return redirect('/settings')
