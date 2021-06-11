@@ -294,8 +294,10 @@ def settings():
 def newMDP():
     if(request.headers.get("X-Forwarded-For")  in session):
         try:
+            print("ON EST LA 1")
             identifiant = request.form['identifiant']
             if(identifiant in session):
+                print("ON EST LA2")
                 ancienMDP = request.form['ancienMDP']
                 nouveauMDP = request.form['nouveauMDP']
                 conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
@@ -306,7 +308,7 @@ def newMDP():
                 password = cur.fetchone()
                 print(password)
                 if(bcrypt.check_password_hash(password[0], ancienMDP)):
-                    print("ON EST LA")
+                    print("ON EST LA3")
                     cur.execute("UPDATE connexion SET Password = '" + bcrypt.generate_password_hash(nouveauMDP) + "' WHERE Identifiant = '" + identifiant + "'")
                     conn.commit()
                     
