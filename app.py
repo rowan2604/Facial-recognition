@@ -8,7 +8,7 @@ import math
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
 app.secret_key = 'SECRET_KEY'
-app.permanent_session_lifetime = timedelta(minutes = 300)
+app.permanent_session_lifetime = timedelta(minutes = 30)
 
 
 #si on veut en local on change  request.headers.get("X-Forwarded-For") par request.remote_addr
@@ -295,7 +295,7 @@ def newMDP():
     if(request.headers.get("X-Forwarded-For")  in session):
         try:
             identifiant = request.form['identifiant']
-            if(session[request.remote_addr] == identifiant):
+            if(session[request.headers.get("X-Forwarded-For")] == identifiant):
                 ancienMDP = request.form['ancienMDP']
                 nouveauMDP = request.form['nouveauMDP']
                 conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
