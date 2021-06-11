@@ -302,13 +302,14 @@ def newMDP():
                 conn.text_factory = str
                 cur = conn.cursor()
                 print("Connexion reussie à SQLite")
-                cur.execute("SELECT password FROM connexion WHERE Identifiant = '" + identifiant + "'")
+                cur.execute("SELECT Password FROM connexion WHERE Identifiant = '" + identifiant + "'")
                 password = cur.fetchone()
                 print(password)
                 if(bcrypt.check_password_hash(password[0], ancienMDP)):
-                    #cur.execute("UPDATE connexion SET password = '" + bcrypt.generate_password_hash(nouveauMDP) + "' WHERE Identifiant = '" + identifiant + "'")
-                    #conn.commit()
                     print("ON EST LA")
+                    cur.execute("UPDATE connexion SET Password = '" + bcrypt.generate_password_hash(nouveauMDP) + "' WHERE Identifiant = '" + identifiant + "'")
+                    conn.commit()
+                    
                 else:
                     return redirect('/settings')
                 cur.close()
