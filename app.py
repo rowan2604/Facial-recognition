@@ -296,7 +296,7 @@ def newMDP():
         try:
             print("ON EST LA 1")
             identifiant = request.form['identifiant']
-            if(identifiant in session):
+            if(identifiant == session[request.headers.get("X-Forwarded-For")]):
                 print("ON EST LA2")
                 ancienMDP = request.form['ancienMDP']
                 nouveauMDP = request.form['nouveauMDP']
