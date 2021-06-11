@@ -309,8 +309,13 @@ def newMDP():
                 print(password)
                 if(bcrypt.check_password_hash(password[0], ancienMDP)):
                     print("ON EST LA3")
-                    newMDP1=str(bcrypt.generate_password_hash(nouveauMDP))
-                    cur.execute("UPDATE connexion SET Password = '" + newMDP1 + "' WHERE Identifiant = '" + identifiant + "'")
+                    pw_hash = bcrypt.generate_password_hash(nouveauMDP)
+                    print('verif')
+                    cur.execute("DELETE FROM connexion WHERE Identifiant = '" + identifiant + "'")
+                    conn.commit()
+                    sql = "INSERT INTO connexion (Identifiant, Password) VALUES (%s,%s)"
+                    value = (identifiant, pw_hash)
+                    cur.execute(sql, value)
                     conn.commit()
                     
                 else:
