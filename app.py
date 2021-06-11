@@ -304,6 +304,7 @@ def newMDP():
                 print("Connexion reussie à SQLite")
                 cur.execute("SELECT password FROM connexion WHERE identifiant = '" + identifiant + "'")
                 password = cur.fetchone()
+                print(password)
                 if(bcrypt.check_password_hash(password[0], ancienMDP)):
                     cur.execute("UPDATE connexion SET password = '" + bcrypt.generate_password_hash(nouveauMDP) + "' WHERE identifiant = '" + identifiant + "'")
                     conn.commit()
