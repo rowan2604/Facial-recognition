@@ -302,7 +302,7 @@ def newMDP():
                 conn.text_factory = str
                 cur = conn.cursor()
                 print("Connexion reussie à SQLite")
-                cur.execute("SELECT password FROM connexion WHERE identifiant = '" + identifiant + "'")
+                cur.execute("SELECT password FROM connexion WHERE Identifiant = '" + identifiant + "'")
                 password = cur.fetchone()
                 print(password)
                 if(bcrypt.check_password_hash(password[0], ancienMDP)):
