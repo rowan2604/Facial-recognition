@@ -110,7 +110,7 @@ def ajouterEtRetour():
             # Si jamais on trouve un étudiant avec la même combinaison de Nom/Prenom, on lui ajoute un numéro à la fin pour le différencier des autres et éviter d'avoir des doublons en BDD
             long = len(cur.fetchall())
             if long > 0:
-                nom = nom + str(long) # On ajoute la valeur de notre long, convertit en string, à noter variable de base
+                nom = nom + str(long) # On ajoute la valeur de notre long, convertit en string, à notre variable de base
                 prenom = prenom + str(long)
             # On définit le set de valeurs à envoyer dans la BDD
             value = (nom, prenom, promo, '$', blobFile1, blobFile2, blobFile3, blobFile4, blobFile5, blobFile6, blobFile7)
@@ -246,7 +246,7 @@ def pageSupprimer():
         return redirect('/')
 
 # Page de validation, de vérification et qui effectue la suppression de l'étudiant
-@app.route('/validSupr', methods=['POST'])
+@app.route('/validSuppr', methods=['POST'])
 def supprimer():
     if (request.headers.get("X-Forwarded-For") in session) :
         validations=[]
@@ -276,7 +276,7 @@ def supprimer():
         except mysql.connector.Error as error:
             print("Erreur lors de l'insertion", error)
 
-        return render_template('validSupr.html',validations=validations)
+        return render_template('validSuppr.html',validations=validations)
 
     else:
         return redirect('/') 
