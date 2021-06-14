@@ -211,9 +211,9 @@ def graphes():
         print("Connexion reussie à SQLite")
         cur.execute("SELECT * FROM Etudiant")
         posts = cur.fetchall()
-        cur.execute("SELECT COUNT(*) FROM Etudiant WHERE Presence = %")
+        cur.execute("SELECT COUNT(*) FROM Etudiant WHERE Presence = '%'")
         presences = cur.fetchone()[0]
-        cur.execute("SELECT COUNT(*) FROM Etudiant WHERE Presence = $")
+        cur.execute("SELECT COUNT(*) FROM Etudiant WHERE Presence = '$'")
         absences = cur.fetchone()[0]
         cur.close()
         conn.close()
