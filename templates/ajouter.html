@@ -100,8 +100,8 @@
                                                         <input type="file" id="photo7" name="photo7" accept="image/png, image/jpeg" required>
                                                    </div>
                                                    <script> 
-                                                        var photo = "photo";
                                                         for(let i = 1; i < 8; i++){
+                                                            let photo = "photo";
                                                             photo = photo + String(i)
                                                             var uploadField = document.getElementById(photo);
                                                             uploadField.onchange = function() {
