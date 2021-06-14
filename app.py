@@ -56,7 +56,7 @@ def index():
         conn.text_factory = str
         cur = conn.cursor()
         print("Connexion reussie à SQLite")
-        cur.execute("CREATE TABLE IF NOT EXISTS Etudiant (id INT PRIMARY KEY NOT NULL AUTO_INCREMENT, Nom VARCHAR(100) NOT NULL, Prenom VARCHAR(100) NOT NULL, Promo VARCHAR(100) NOT NULL, Presence INT NOT NULL, Photo1 BLOB NOT NULL, Photo2 BLOB NOT NULL, Photo3 BLOB NOT NULL, Photo4 BLOB NOT NULL, Photo5 BLOB NOT NULL, Photo6 BLOB NOT NULL, Photo7 BLOB NOT NULL)")
+        cur.execute("CREATE TABLE IF NOT EXISTS Etudiant (id INT PRIMARY KEY NOT NULL AUTO_INCREMENT, Nom VARCHAR(100) NOT NULL, Prenom VARCHAR(100) NOT NULL, Promo VARCHAR(100) NOT NULL, Presence VARCHAR(45) NOT NULL, Photo1 BLOB NOT NULL, Photo2 BLOB NOT NULL, Photo3 BLOB NOT NULL, Photo4 BLOB NOT NULL, Photo5 BLOB NOT NULL, Photo6 BLOB NOT NULL, Photo7 BLOB NOT NULL)")
         cur.execute("SELECT * FROM Etudiant")
         posts = cur.fetchall()
         cur.close()
@@ -106,7 +106,7 @@ def ajouterEtRetour():
             if long > 0:
                 nom = nom + str(long)
                 prenom = prenom + str(long)
-            value = (nom, prenom, promo, 0, blobFile1, blobFile2, blobFile3, blobFile4, blobFile5, blobFile6, blobFile7)
+            value = (nom, prenom, promo, '$', blobFile1, blobFile2, blobFile3, blobFile4, blobFile5, blobFile6, blobFile7)
             cur.execute(sql, value)
             conn.commit()
             print("Fichier insere avec succes")
@@ -139,8 +139,8 @@ def ajouterIdentifiant():
         conn.text_factory = str
         cur = conn.cursor()
         print("Connexion reussie à SQLite")
-        sql = "INSERT INTO connexion (Identifiant, Password,Connect) VALUES (%s,%s,%s)"
-        value = (identifiant, pw_hash,0)
+        sql = "INSERT INTO connexion (Identifiant, Password) VALUES (%s,%s)"
+        value = (identifiant, pw_hash)
         cur.execute(sql, value)
         conn.commit()
         print("Fichier insere avec succes")
@@ -211,9 +211,9 @@ def graphes():
         print("Connexion reussie à SQLite")
         cur.execute("SELECT * FROM Etudiant")
         posts = cur.fetchall()
-        cur.execute("SELECT COUNT(*) FROM Etudiant WHERE Presence = 1")
+        cur.execute("SELECT COUNT(*) FROM Etudiant WHERE Presence = %")
         presences = cur.fetchone()[0]
-        cur.execute("SELECT COUNT(*) FROM Etudiant WHERE Presence = 0")
+        cur.execute("SELECT COUNT(*) FROM Etudiant WHERE Presence = $")
         absences = cur.fetchone()[0]
         cur.close()
         conn.close()
