@@ -78,7 +78,7 @@ def pageAjouter():
         return redirect('/')
 
 # Page de vérification de l'ajout d'un étudiant
-@app.route('/validation', methods=['POST'])
+@app.route('/valid', methods=['POST'])
 def ajouterEtRetour():
     if(request.headers.get("X-Forwarded-For") in session ):
         try :
@@ -108,6 +108,7 @@ def ajouterEtRetour():
             # On vérifie si il n'existe pas un étudiant avec la même combinaison Nom/Prenom dans la BDD et dans celui que l'on veut ajouter 
             cur.execute("SELECT * FROM etudiant WHERE Nom LIKE '" + nom + "%' AND Prenom LIKE '" + prenom + "%'")
             # Si jamais on trouve un étudiant avec la même combinaison de Nom/Prenom, on lui ajoute un numéro à la fin pour le différencier des autres et éviter d'avoir des doublons en BDD
+            long = len(cur.fetchall())
             if long > 0:
                 nom = nom + str(long) # On ajoute la valeur de notre long, convertit en string, à noter variable de base
                 prenom = prenom + str(long)
