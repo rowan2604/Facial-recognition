@@ -1,39 +1,139 @@
-<html>
-	<head>
-		<title>Ajouter un élève</title>
-		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename= 'css/ajouterEleve.css') }}">
-		<meta charset="UTF-8"/>
-	</head>
-	<body>
-		<header>
-			<ul>
-				<li><a href="/index">Liste des étudiants</a></li>
-  				<li style="float:right"><a href="/deconnexion">Déconnexion</a></li>
-			</ul>
-		</header>
-		<div class="container">
-			<form action="/validCo" method="POST" enctype="multipart/form-data">
-   				<div class="row">
-					<div class="col-25">
-       					<label for="fname">Identifiant</label>
-   					</div>
-   					<div class="col-75">
-      					<input type="text" id="identifiant" name="identifiant" placeholder="Identifiant" required>
-   					</div>
-  				</div>
-   				<div class="row">
-   					<div class="col-25">
-       					<label for="lname">Mot de Passe</label>
-   					</div>
-   					<div class="col-75">
-       					<input type="password" id="password" name="password" placeholder="Password" 
-							pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,15})" required>
-   					</div>
-   				</div>
-   				<div class="row">
-   					<input type="submit" value="Submit">
-   				</div>
-			</form>
-		</div>
-	</body>
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dashbord Administrateur</title>
+    
+
+    <!-- Custom fonts for this template -->
+    <link href="{{ url_for('static', filename= 'vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet"
+        type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename= 'css/sb-admin-2.min.css') }}" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="{{ url_for('static', filename= 'vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+
+    
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        {% include 'navbar.html' %}
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                {% include 'topbar.html' %}
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <div class="container">
+                        <div class="card o-hidden border-0 shadow-lg my-5">
+                            <div class="card-body p-0">
+                                <!-- Nested Row within Card Body -->
+                                <div class="row">
+                                    <div class="col-lg-7">
+                                        <div class="p-5">
+                                            <div class="text-center">
+                                                <h1 class="h4 text-gray-900 mb-4">Ajouter un utilisateur :</h1>
+                                            </div>
+                                            <form action="/validCo" method="POST" enctype="multipart/form-data" class="user">
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <input type="text" class="form-control form-control-user" name ="identifiant" id="exampleLastName"
+                                                            placeholder="Identifiant" required>
+                                                    </div>
+
+                                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                                        <input type="password" class="form-control form-control-user" name ="password" id="exampleFirstName"
+                                                            placeholder="Mot de passe" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,15})" required>
+                                                    </div> 
+                                                </div>
+                                                <input type="submit" class="btn btn-primary btn-user btn-block">
+                                                </input>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                
+                    </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">DECONNEXION</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Etes vous sûr de vouloir vous déconnecter</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Fermer</button>
+                    <a class="btn btn-primary" href="/deconnexion">Déconnexion</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        document.getElementById("ajouterCo").classList.add("active");
+    </script>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="{{ url_for('static', filename= 'vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename= 'vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{{ url_for('static', filename= 'vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{{ url_for('static', filename= 'js/sb-admin-2.min.js') }}"></script>
+
+    <!-- Page level plugins -->
+    <script src="{{ url_for('static', filename= 'vendor/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ url_for('static', filename= 'vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{{ url_for('static', filename= 'js/demo/datatables-demo.js') }}"></script>
+
+</body>
+
 </html>

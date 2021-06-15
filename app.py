@@ -15,7 +15,6 @@ app.permanent_session_lifetime = timedelta(minutes = 30)
 
 @app.route('/')
 def connexion():
-    remote_addr = request.headers.get("X-Forwarded-For")
     if (request.headers.get("X-Forwarded-For") in session):# On vérifie si on a déjà une session ouverte 
         return redirect('/index')# Si on est déjà connecté on ouvre directement la page index
     else:
@@ -23,7 +22,7 @@ def connexion():
 
 # Page servant à vérifier si la combinaison identifiant/mot de passe coïncident bien avec une déjà présente dans la BDD
 @app.route('/auth/', methods=['POST'])
-def auth():
+def authentification():
      # On réupère les différentes valeurs entré dans les champs de noter formulaire
     identifiant = request.form['Identifiant']
     mdp = request.form['mdp']
@@ -38,7 +37,7 @@ def auth():
     #On vérifie que le mot de passe rentré dans notre formulaire correspond bien à celui récupéré dans notre BDD
     # Bien évidemment tous nos mots de passe sont alors cryptés à l'aide de la méthode BCrypt
     if BDDmdp != None and bcrypt.check_password_hash(BDDmdp[0], mdp):
-        session[request.headers.get("X-Forwarded-For")] = identifiant# On stocke alors notre identifiant dans notre dictionnaire session afin de le réutiliser plus tard
+        session[request.headers.get("X-Forwarded-For")] = identifiant # On stocke alors notre identifiant dans notre dictionnaire session afin de le réutiliser plus tard
         return redirect('/index')# Une fois connecté on est alors redirigé vers la page index 
     else:
         return redirect('/')# Si les mots de passe ou les identifiants ne coïncident pas, la page de connexion est alors rafraîchie 
@@ -46,7 +45,7 @@ def auth():
 
 # Page servant à se déconnecté de la session courante
 @app.route('/deconnexion')
-def deco():
+def deconnexion():
     session.pop(request.headers.get("X-Forwarded-For"), None) # On ferme la session
     return redirect('/')# On est alors redirigé vers la page de connexion
 
@@ -131,36 +130,42 @@ def ajouterEtRetour():
         return redirect('/')
 
 # Page nous permettant d'ajouter des utilisateurs
-@app.route("/ajouterCO")
+@app.route("/ajouterCo")
 def ajouterCo():
-    return render_template("ajouterCo.html")
+    if session[request.headers.get("X-Forwarded-For")] == "Administrateur":
+        return render_template("ajouterCo.html")
+    else :
+        redirect('/')
 
 # Page permettant d'ajouter l'utilisateur à la table connexion de notre BDD
 @app.route('/validCo', methods=['POST'])
 def ajouterIdentifiant():
-    try :
-        identifiant = request.form['identifiant']
-        password = request.form['password']
-        pw_hash = bcrypt.generate_password_hash(password)# On crypte notre mot de passe à l'aide de la méthode BCrypt
-        conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
-        conn.text_factory = str
-        cur = conn.cursor()
-        sql = "INSERT INTO connexion (Identifiant, Password) VALUES (%s,%s)"
-        value = (identifiant, pw_hash)
-        cur.execute(sql, value)
-        conn.commit()
-        cur.close()
-        conn.close()
+    if session[request.headers.get("X-Forwarded-For")] == "Administrateur":
+        try :
+            identifiant = request.form['identifiant']
+            password = request.form['password']
+            validation = []
+            validation.extend(identifiant)
+            pw_hash = bcrypt.generate_password_hash(password)# On crypte notre mot de passe à l'aide de la méthode BCrypt
+            conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
+            conn.text_factory = str
+            cur = conn.cursor()
+            sql = "INSERT INTO connexion (Identifiant, Password) VALUES (%s,%s)"
+            value = (identifiant, pw_hash)
+            cur.execute(sql, value)
+            conn.commit()
+            cur.close()
+            conn.close()
 
-    except mysql.connector.Error as error:
-        print("Erreur lors de l'insertion", error)
+        except mysql.connector.Error as error:
+            print("Erreur lors de l'insertion", error)
     
-    return render_template("validation.html")
+        return render_template("validation.html", validation = validation)
 
 
 # Page affichant la liste des étudiants en affichant une seule année à la fois
 @app.route('/annee', methods=['POST'])
-def annee():
+def triAnnee():
     if(request.headers.get("X-Forwarded-For") in session ):
         try:
             annee = request.form['annee']
@@ -188,7 +193,7 @@ def annee():
     
 # Page affichant la liste des étudiants en affichant une seule promotion à la fois
 @app.route('/promo', methods=['POST'])
-def promo():
+def triPromo():
     try :
         if(request.headers.get("X-Forwarded-For") in session ):
             promo = request.form['promo']
