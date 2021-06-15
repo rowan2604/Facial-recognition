@@ -138,15 +138,14 @@ def ajouterCo():
             return render_template("ajouterCo.html")
 
         else :
-            redirect ('/')
+            return redirect ('/')
 
     else :
-        redirect('/')
+        return redirect('/')
 
 # Page permettant d'ajouter l'utilisateur à la table connexion de notre BDD
 @app.route('/validCo', methods=['POST'])
-def ajouterIdentifiant():
-    
+def ajouterIdentifiant():  
     if(request.headers.get("X-Forwarded-For")  in session):
         administrateur = "Administrateur"
         if (administrateur == str(session[request.headers.get("X-Forwarded-For")])) :
@@ -171,10 +170,10 @@ def ajouterIdentifiant():
     
             return render_template("validation.html", validation = validation)
         else :
-            redirect ('/')
+            return redirect ('/')
 
     else :
-        redirect('/')
+        return redirect('/')
 
 
 # Page affichant la liste des étudiants en affichant une seule année à la fois
