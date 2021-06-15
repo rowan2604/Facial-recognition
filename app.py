@@ -15,7 +15,7 @@ app.permanent_session_lifetime = timedelta(minutes = 30)
 
 @app.route('/')
 def connexion():
-    if (request.headers.get("X-Forwarded-For") in session): # On vérifie si on a déjà une session ouverte 
+    if (request.headers.get("X-Forwarded-For") in session): # On vérifie si on a déjà une session ouverte
         return redirect('/index')# Si on est déjà connecté on ouvre directement la page index
     else:
         return render_template('login.html')# Sinon on lance la page de connexion au site
@@ -115,7 +115,7 @@ def ajouterEtRetour():
             value = (nom, prenom, promo, '$', blobFile1, blobFile2, blobFile3, blobFile4, blobFile5, blobFile6, blobFile7)
             cur.execute(sql, value)
             conn.commit()
-             # On  récupère le informations du dernier étudiant ajouté en BDD afin de vérifier qu'il a bien été ajouté dans la BDD et que l'utilisateur puisse vérifier les informations rentrées
+            # On  récupère le informations du dernier étudiant ajouté en BDD afin de vérifier qu'il a bien été ajouté dans la BDD et que l'utilisateur puisse vérifier les informations rentrées
             cur.execute( "SELECT Nom, Prenom, Promo FROM Etudiant WHERE id = (SELECT MAX(id) FROM Etudiant)")
             validation = cur.fetchone()
             cur.close()
@@ -136,6 +136,9 @@ def ajouterCo():
     if(request.headers.get("X-Forwarded-For")  in session):
         if (administrateur == session[request.headers.get("X-Forwarded-For")]) :
             return render_template("ajouterCo.html")
+
+        else :
+            redirect ('/')
 
     else :
         redirect('/')
@@ -167,6 +170,9 @@ def ajouterIdentifiant():
                 print("Erreur lors de l'insertion", error)
     
             return render_template("validation.html", validation = validation)
+        else :
+            redirect ('/')
+
     else :
         redirect('/')
 
