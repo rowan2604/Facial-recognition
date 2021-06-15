@@ -132,7 +132,7 @@ def ajouterEtRetour():
 # Page nous permettant d'ajouter des utilisateurs
 @app.route("/ajouterCo")
 def ajouterCo():
-    if str(session[request.headers.get("X-Forwarded-For")]) == "Administrateur":
+    if ("Administrateur" == str(session[request.headers.get("X-Forwarded-For")])) :
         return render_template("ajouterCo.html")
 
     else :
@@ -141,7 +141,7 @@ def ajouterCo():
 # Page permettant d'ajouter l'utilisateur à la table connexion de notre BDD
 @app.route('/validCo', methods=['POST'])
 def ajouterIdentifiant():
-    if str(session[request.headers.get("X-Forwarded-For")]) == "Administrateur":
+    if ("Administrateur" == str(session[request.headers.get("X-Forwarded-For")])) :
         try :
             identifiant = request.form['identifiant']
             password = request.form['password']
