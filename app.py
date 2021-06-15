@@ -15,7 +15,7 @@ app.permanent_session_lifetime = timedelta(minutes = 30)
 
 @app.route('/')
 def connexion():
-    if (request.headers.get("X-Forwarded-For") in session):# On vérifie si on a déjà une session ouverte 
+    if (request.headers.get("X-Forwarded-For") in session): # On vérifie si on a déjà une session ouverte 
         return redirect('/index')# Si on est déjà connecté on ouvre directement la page index
     else:
         return render_template('login.html')# Sinon on lance la page de connexion au site
@@ -79,7 +79,7 @@ def pageAjouter():
 # Page de vérification de l'ajout d'un étudiant
 @app.route('/valid', methods=['POST'])
 def ajouterEtRetour():
-    if(request.headers.get("X-Forwarded-For") in session ):
+    if(request.headers.get("X-Forwarded-For") in session):
         try :
             nom = request.form['nom']
             prenom = request.form['prenom']
@@ -132,7 +132,7 @@ def ajouterEtRetour():
 # Page nous permettant d'ajouter des utilisateurs
 @app.route("/ajouterCo")
 def ajouterCo():
-    if "Administrateur" in session:
+    if str(session[request.headers.get("X-Forwarded-For")]) == "Administrateur":
         return render_template("ajouterCo.html")
 
     else :
