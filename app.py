@@ -71,7 +71,7 @@ def index():
 # Page affichant le dormulaire servant à ajouter des étudiants à la BDD
 @app.route('/ajouter')
 def pageAjouter():
-    if(request.headers.get("X-Forwarded-For") in session ):
+    if(request.headers.get("X-Forwarded-For") in session):
         return render_template('ajouter.html')
     else:
         return redirect('/')
@@ -132,7 +132,7 @@ def ajouterEtRetour():
 # Page nous permettant d'ajouter des utilisateurs
 @app.route("/ajouterCo")
 def ajouterCo():
-    if session[request.headers.get("X-Forwarded-For")] == "Administrateur":
+    if "Administrateur" in session:
         return render_template("ajouterCo.html")
 
     else :
