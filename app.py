@@ -132,8 +132,10 @@ def ajouterEtRetour():
 # Page nous permettant d'ajouter des utilisateurs
 @app.route("/ajouterCo")
 def ajouterCo():
-    if ("Administrateur" == str(session[request.headers.get("X-Forwarded-For")])) :
-        return render_template("ajouterCo.html")
+    administrateur = "Administrateur"
+    if(request.headers.get("X-Forwarded-For")  in session):
+        if (administrateur == session[request.headers.get("X-Forwarded-For")]) :
+            return render_template("ajouterCo.html")
 
     else :
         redirect('/')
@@ -141,27 +143,32 @@ def ajouterCo():
 # Page permettant d'ajouter l'utilisateur à la table connexion de notre BDD
 @app.route('/validCo', methods=['POST'])
 def ajouterIdentifiant():
-    if ("Administrateur" == str(session[request.headers.get("X-Forwarded-For")])) :
-        try :
-            identifiant = request.form['identifiant']
-            password = request.form['password']
-            validation = []
-            validation.extend(identifiant)
-            pw_hash = bcrypt.generate_password_hash(password)# On crypte notre mot de passe à l'aide de la méthode BCrypt
-            conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
-            conn.text_factory = str
-            cur = conn.cursor()
-            sql = "INSERT INTO connexion (Identifiant, Password) VALUES (%s,%s)"
-            value = (identifiant, pw_hash)
-            cur.execute(sql, value)
-            conn.commit()
-            cur.close()
-            conn.close()
-
-        except mysql.connector.Error as error:
-            print("Erreur lors de l'insertion", error)
     
-        return render_template("validation.html", validation = validation)
+    if(request.headers.get("X-Forwarded-For")  in session):
+        administrateur = "Administrateur"
+        if (administrateur == str(session[request.headers.get("X-Forwarded-For")])) :
+            try :
+                identifiant = request.form['identifiant']
+                password = request.form['password']
+                validation = []
+                validation.extend(identifiant)
+                pw_hash = bcrypt.generate_password_hash(password)# On crypte notre mot de passe à l'aide de la méthode BCrypt
+                conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
+                conn.text_factory = str
+                cur = conn.cursor()
+                sql = "INSERT INTO connexion (Identifiant, Password) VALUES (%s,%s)"
+                value = (identifiant, pw_hash)
+                cur.execute(sql, value)
+                conn.commit()
+                cur.close()
+                conn.close()
+
+            except mysql.connector.Error as error:
+                print("Erreur lors de l'insertion", error)
+    
+            return render_template("validation.html", validation = validation)
+    else :
+        redirect('/')
 
 
 # Page affichant la liste des étudiants en affichant une seule année à la fois
@@ -223,7 +230,7 @@ def graphes():
         cur.execute("SELECT * FROM Etudiant")
         posts = cur.fetchall()
         cur.execute("SELECT COUNT(*) FROM Etudiant WHERE Presence = '%'")# On récupère le nombre d'élèves présents en ce moment
-        presences = cur.fetchone()[0]# On l'ajoute à notre tableau 
+        presences = cur.fetchone()[0] # On l'ajoute à notre tableau 
         cur.execute("SELECT COUNT(*) FROM Etudiant WHERE Presence = '$'")# On récupère le nombre d'élèves absents en ce moment
         absences = cur.fetchone()[0]
         cur.close()
