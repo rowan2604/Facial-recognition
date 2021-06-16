@@ -63,7 +63,7 @@ def index():
         cur.close()
         conn.close()
         # On affiche la page correspondante au lancement de la page, et on envoie les valeurs de noter posts à la page html
-        return render_template('dashboard.html', posts = posts)
+        return render_template('dashboard.html', posts = posts, identifiant = session[request.headers.get("X-Forwarded-For")])
 
     else:
         return redirect('/')  
@@ -72,7 +72,7 @@ def index():
 @app.route('/ajouter')
 def pageAjouter():
     if(request.headers.get("X-Forwarded-For") in session):
-        return render_template('ajouter.html')
+        return render_template('ajouter.html', identifiant = session[request.headers.get("X-Forwarded-For")])
     else:
         return redirect('/')
 
@@ -124,7 +124,7 @@ def ajouterEtRetour():
         except mysql.connector.Error as error:
             print("Erreur lors de l'insertion", error)
 
-        return render_template('valid.html', validation = validation)
+        return render_template('valid.html', validation = validation, identifiant = session[request.headers.get("X-Forwarded-For")])
 
     else:
         return redirect('/')
@@ -135,7 +135,7 @@ def ajouterCo():
     administrateur = "Administrateur"
     if(request.headers.get("X-Forwarded-For")  in session):
         if (administrateur == session[request.headers.get("X-Forwarded-For")]) :
-            return render_template("ajouterCo.html")
+            return render_template("ajouterCo.html", identifiant = session[request.headers.get("X-Forwarded-For")])
 
         else :
             return redirect ('/')
@@ -168,7 +168,7 @@ def ajouterIdentifiant():
             except mysql.connector.Error as error:
                 print("Erreur lors de l'insertion", error)
     
-            return render_template("validation.html", validation = validation)
+            return render_template("validation.html", validation = validation, identifiant = session[request.headers.get("X-Forwarded-For")])
         else :
             return redirect ('/')
 
@@ -197,7 +197,7 @@ def triAnnee():
             else :
                 cur.execute("SELECT * FROM Etudiant WHERE (Promo = 'CIR" + annee + "' OR Promo = 'CPG" + annee + "' OR Promo = 'CNB" + annee + "')")
             posts = cur.fetchall()
-            return render_template('annee.html', posts = posts, annee = annees)
+            return render_template('annee.html', posts = posts, annee = annees, identifiant = session[request.headers.get("X-Forwarded-For")])
         except mysql.connector.Error as error:
             print("Erreur lors de l'insertion", error)
     else:
@@ -217,7 +217,7 @@ def triPromo():
             cur = conn.cursor()
             cur.execute("SELECT * FROM Etudiant WHERE (Promo = '" + promo + "')")
             posts = cur.fetchall()
-            return render_template('promo.html', posts = posts, promo = promos)
+            return render_template('promo.html', posts = posts, promo = promos, identifiant = session[request.headers.get("X-Forwarded-For")])
 
         else:
             return redirect('/')
@@ -246,7 +246,7 @@ def graphes():
             pct = []
             pct.append(pctPre)
             pct.append(pctAbs)
-            return render_template('graphes.html', posts = posts, presences = presences, absences = absences, pct = pct)
+            return render_template('graphes.html', posts = posts, presences = presences, absences = absences, pct = pct, identifiant = session[request.headers.get("X-Forwarded-For")])
         except:
             print("erreur division par zero")
             return redirect('/index') 
@@ -259,7 +259,7 @@ def graphes():
 @app.route('/supprimer')
 def pageSupprimer():
     if (request.headers.get("X-Forwarded-For") in session) :
-        return render_template('supprimer.html')
+        return render_template('supprimer.html', identifiant = session[request.headers.get("X-Forwarded-For")])
     else:
         return redirect('/')
 
@@ -289,12 +289,12 @@ def supprimer():
             else:
                 cur.close()
                 conn.close()
-                return render_template('IncorrectSuppr.html')
+                return render_template('IncorrectSuppr.html', identifiant = session[request.headers.get("X-Forwarded-For")])
 
         except mysql.connector.Error as error:
             print("Erreur lors de l'insertion", error)
 
-        return render_template('validSuppr.html',validations=validations)
+        return render_template('validSuppr.html',validations=validations, identifiant = session[request.headers.get("X-Forwarded-For")])
 
     else:
         return redirect('/') 
@@ -303,7 +303,7 @@ def supprimer():
 @app.route('/settings')
 def settings():
     if(request.headers.get("X-Forwarded-For")  in session):
-        return render_template('settings.html')
+        return render_template('settings.html', identifiant = session[request.headers.get("X-Forwarded-For")])
     else:
         return redirect('/')
 
@@ -333,11 +333,15 @@ def newMDP():
                     
                 else:
                     return redirect('/settings')
+
                 cur.close()
                 conn.close()
                 return redirect('/index')
+
             return redirect('/settings')
+
         except mysql.connector.Error as error:
             print("Erreur lors de l'insertion", error)
     else:
+        
         return redirect('/')
