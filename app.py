@@ -226,7 +226,7 @@ def triPromo():
         print("Erreur lors de l'insertion", error)
 
 # Page affichant un graphique montrant la porportion entre les élèves présents et absents
-@app.route('/graphes')
+@app.route('/graphe')
 def graphes():
     if(request.headers.get("X-Forwarded-For") in session ):
         conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
@@ -343,5 +343,5 @@ def newMDP():
         except mysql.connector.Error as error:
             print("Erreur lors de l'insertion", error)
     else:
-        
+
         return redirect('/')
