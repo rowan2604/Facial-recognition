@@ -82,10 +82,9 @@
                                             <td>
                                                 <form action="/validSuppr" method="POST" enctype="multipart/form-data"
                                                     class="user">
-
-                                                    <input  name="nom" type="hidden" value="hadjaz">
-                                                    <input  name="prenom" type="hidden" value="rowan">
-                                                    <input name="promo" type="hidden" value="CIR1">
+                                                    <input  name="nom" type="hidden" value={{post[1]}}>
+                                                    <input  name="prenom" type="hidden" value={{post[2]}}>
+                                                    <input name="promo" type="hidden" value={{post[3]}}>
                                                     <input type="submit" class="btn btn-primary btn-user btn-block">
                                                     </input>
                                                 </form>
