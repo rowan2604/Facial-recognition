@@ -99,6 +99,7 @@ def ajouterEtRetour():
             # On convertit toutes nos photos en BlobFile afin de pouvoir les stocker convenablement en BDD
             for files in pic1:
                 files.read()
+                print(files.read())
             #blobFile1 = pic1.read()
             # blobFile2 = pic2.read()
             # blobFile3 = pic3.read()
