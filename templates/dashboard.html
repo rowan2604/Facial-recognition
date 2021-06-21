@@ -9,7 +9,7 @@
     <meta name="author" content="">
 
     <title>Dashbord Administrateur</title>
-    
+
 
     <!-- Custom fonts for this template -->
     <link href="{{ url_for('static', filename= 'vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet"
@@ -24,7 +24,7 @@
     <!-- Custom styles for this page -->
     <link href="{{ url_for('static', filename= 'vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
-    
+
 </head>
 
 <body id="page-top">
@@ -62,6 +62,7 @@
                                             <th>Prénom</th>
                                             <th>Promotion</th>
                                             <th>Présence</th>
+                                            <th>Suppression</th>
                                         </tr>
                                     </thead>
                                     {% block content %}
@@ -72,10 +73,23 @@
                                             <td>{{ post[2] }}</td>
                                             <td>{{ post[3] }}</td>
                                             {% if post[4] == '%' %}
-                                            <td class="green" style="background-color: green; font-size: 0px;">{{ post[4] }}</td>
+                                            <td class="green" style="background-color: green; font-size: 0px;">{{
+                                                post[4] }}</td>
                                             {% else %}
-                                            <td class="red" style="background-color: red; font-size: 0px;">{{ post[4] }}</td>
+                                            <td class="red" style="background-color: red; font-size: 0px;">{{ post[4] }}
+                                            </td>
                                             {% endif %}
+                                            <td>
+                                                <form action="/validSuppr" method="POST" enctype="multipart/form-data"
+                                                    class="user">
+
+                                                    <input type="text" name="nom" type="hidden">
+                                                    <input type="text" name="prenom" type="hidden">
+                                                    <input type="text" name="promo" type="hidden">
+                                                    <input type="submit" class="btn btn-primary btn-user btn-block">
+                                                    </input>
+                                                </form>
+                                            </td>
                                         </tr>
                                         {% endfor %}
 
