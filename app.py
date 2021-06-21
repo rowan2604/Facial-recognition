@@ -110,15 +110,15 @@ def ajouterEtRetour():
             cur.execute("SELECT * FROM etudiant WHERE Nom LIKE '" + nom + "%' AND Prenom LIKE '" + prenom + "%'")
             # Si jamais on trouve un étudiant avec la même combinaison de Nom/Prenom, on lui ajoute un numéro à la fin pour le différencier des autres et éviter d'avoir des doublons en BDD
             long = len(cur.fetchall())
-            if long > 0:
-                nom = nom + str(long) # On ajoute la valeur de notre long, convertit en string, à notre variable de base
-                prenom = prenom + str(long)
-            # On définit le set de valeurs à envoyer dans la BDD
-            value = (nom, prenom, promo, '$', blobFile1, blobFile2, blobFile3, blobFile4, blobFile5, blobFile6, blobFile7)
-            cur.execute(sql, value)
-            conn.commit()
-            # On  récupère le informations du dernier étudiant ajouté en BDD afin de vérifier qu'il a bien été ajouté dans la BDD et que l'utilisateur puisse vérifier les informations rentrées
-            cur.execute( "SELECT Nom, Prenom, Promo FROM Etudiant WHERE id = (SELECT MAX(id) FROM Etudiant)")
+            # if long > 0:
+            #     nom = nom + str(long) # On ajoute la valeur de notre long, convertit en string, à notre variable de base
+            #     prenom = prenom + str(long)
+            # # On définit le set de valeurs à envoyer dans la BDD
+            # value = (nom, prenom, promo, '$', blobFile1, blobFile2, blobFile3, blobFile4, blobFile5, blobFile6, blobFile7)
+            # cur.execute(sql, value)
+            # conn.commit()
+            # # On  récupère le informations du dernier étudiant ajouté en BDD afin de vérifier qu'il a bien été ajouté dans la BDD et que l'utilisateur puisse vérifier les informations rentrées
+            # cur.execute( "SELECT Nom, Prenom, Promo FROM Etudiant WHERE id = (SELECT MAX(id) FROM Etudiant)")
             validation = cur.fetchone()
             cur.close()
             conn.close()
