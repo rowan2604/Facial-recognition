@@ -31,14 +31,8 @@
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-        {% block content %}
-        {% if identifiant == "Administration" %}
+
         {% include 'navbar.html' %}
-        {% else %}
-        {% include 'navbar2.html' %}
-        {% endblock %}
-        {% endif %}
-        {% endblock %}
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
