@@ -79,9 +79,8 @@
                                             <td class="red" style="background-color: red; font-size: 0px;">{{ post[4] }}
                                             </td>
                                             {% endif %}
-                                            <td style="border: none;">
-                                                <form action="/validSuppr" method="POST" enctype="multipart/form-data"
-                                                    class="user">
+                                            <td>
+                                                <form action="/validSuppr" method="POST" enctype="multipart/form-data"class="user">
                                                     <input name="nom" type="hidden" value={{post[1]}}>
                                                     <input name="prenom" type="hidden" value={{post[2]}}>
                                                     <input name="promo" type="hidden" value={{post[3]}}>
