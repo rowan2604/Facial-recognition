@@ -85,12 +85,12 @@ def ajouterEtRetour():
             prenom = request.form['prenom']
             promo = request.form['promo']
             pic1 = request.files.getlist('photo1')
-            pic2 = request.files['photo2']
-            pic3 = request.files['photo3']
-            pic4 = request.files['photo4']
-            pic5 = request.files['photo5']
-            pic6 = request.files['photo6']
-            pic7 = request.files['photo7']
+            # pic2 = request.files['photo2']
+            # pic3 = request.files['photo3']
+            # pic4 = request.files['photo4']
+            # pic5 = request.files['photo5']
+            # pic6 = request.files['photo6']
+            # pic7 = request.files['photo7']
             conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
             conn.text_factory = str
             cur = conn.cursor()
@@ -100,25 +100,25 @@ def ajouterEtRetour():
             for files in pic1:
                 files.read()
             #blobFile1 = pic1.read()
-            blobFile2 = pic2.read()
-            blobFile3 = pic3.read()
-            blobFile4 = pic4.read()
-            blobFile5 = pic5.read()
-            blobFile6 = pic6.read()
-            blobFile7 = pic7.read()
+            # blobFile2 = pic2.read()
+            # blobFile3 = pic3.read()
+            # blobFile4 = pic4.read()
+            # blobFile5 = pic5.read()
+            # blobFile6 = pic6.read()
+            # blobFile7 = pic7.read()
             # On vérifie si il n'existe pas un étudiant avec la même combinaison Nom/Prenom dans la BDD et dans celui que l'on veut ajouter 
             cur.execute("SELECT * FROM etudiant WHERE Nom LIKE '" + nom + "%' AND Prenom LIKE '" + prenom + "%'")
             # Si jamais on trouve un étudiant avec la même combinaison de Nom/Prenom, on lui ajoute un numéro à la fin pour le différencier des autres et éviter d'avoir des doublons en BDD
             long = len(cur.fetchall())
-            # if long > 0:
-            #     nom = nom + str(long) # On ajoute la valeur de notre long, convertit en string, à notre variable de base
-            #     prenom = prenom + str(long)
-            # # On définit le set de valeurs à envoyer dans la BDD
-            # value = (nom, prenom, promo, '$', blobFile1, blobFile2, blobFile3, blobFile4, blobFile5, blobFile6, blobFile7)
-            # cur.execute(sql, value)
-            # conn.commit()
-            # # On  récupère le informations du dernier étudiant ajouté en BDD afin de vérifier qu'il a bien été ajouté dans la BDD et que l'utilisateur puisse vérifier les informations rentrées
-            # cur.execute( "SELECT Nom, Prenom, Promo FROM Etudiant WHERE id = (SELECT MAX(id) FROM Etudiant)")
+            if long > 0:
+                nom = nom + str(long) # On ajoute la valeur de notre long, convertit en string, à notre variable de base
+                prenom = prenom + str(long)
+            # On définit le set de valeurs à envoyer dans la BDD
+            value = (nom, prenom, promo, '$', pic1[0].read(), pic1[1].read(), pic1[2].read(), pic1[3].read(), pic1[4].read(), pic1[5].read(), pic1[6].read())
+            cur.execute(sql, value)
+            conn.commit()
+            # On  récupère le informations du dernier étudiant ajouté en BDD afin de vérifier qu'il a bien été ajouté dans la BDD et que l'utilisateur puisse vérifier les informations rentrées
+            cur.execute( "SELECT Nom, Prenom, Promo FROM Etudiant WHERE id = (SELECT MAX(id) FROM Etudiant)")
             validation = cur.fetchone()
             cur.close()
             conn.close()
