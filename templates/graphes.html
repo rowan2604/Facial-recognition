@@ -9,7 +9,7 @@
     <meta name="author" content="">
 
     <title>Dashbord Administrateur</title>
-    
+
 
     <!-- Custom fonts for this template -->
     <link href="{{ url_for('static', filename= 'vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet"
@@ -24,7 +24,7 @@
     <!-- Custom styles for this page -->
     <link href="{{ url_for('static', filename= 'vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
-    
+
 </head>
 
 <body id="page-top">
@@ -50,85 +50,116 @@
                         var pres = '{{presences}}';
                         var abs = '{{absences}}';
                     </script>
-                
+
                     <div class="col-xl-4 col-lg-5">
                         <div class="card shadow mb-4">
                             <!-- Card Header - Dropdown -->
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Taux d'absence / présence des étudiants</h6>
+                                <h6 class="m-0 font-weight-bold text-primary" id="date_heure">Taux d'absence / présence des étudiants au
+                                    sein de l'ISEN</h6>
                             </div>
                             <!-- Card Body -->
-                            
+
                             <div class="card-body">
                                 <h4 id="presences" style="text-align: center; color: #1cc88a;">{{pct[0]}}%</h4>
                                 <div class="chart-pie pt-4">
                                     <canvas id="myPieChart"></canvas>
                                 </div>
-                                <h4 id="presences" style="text-align: center; color: #ff0000; margin-top: 5%;">{{pct[1]}}%</h4>
+                                <h4 id="presences" style="text-align: center; color: #ff0000; margin-top: 5%;">
+                                    {{pct[1]}}%</h4>
                             </div>
                         </div>
                     </div>
-                <!-- /.container-fluid -->
+                    <!-- /.container-fluid -->
+
+                </div>
+                <!-- End of Main Content -->
+
 
             </div>
-            <!-- End of Main Content -->
-
+            <!-- End of Content Wrapper -->
 
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- End of Page Wrapper -->
 
-    </div>
-    <!-- End of Page Wrapper -->
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">DECONNEXION</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Etes vous sûr de vouloir vous déconnecter</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Fermer</button>
-                    <a class="btn btn-primary" href="/deconnexion">Déconnexion</a>
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">DECONNEXION</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Etes vous sûr de vouloir vous déconnecter</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Fermer</button>
+                        <a class="btn btn-primary" href="/deconnexion">Déconnexion</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script type="text/javascript">
-        document.getElementById("graphiques").classList.add("active");
-    </script>
+        <script type="text/javascript">
+            document.getElementById("graphiques").classList.add("active");
+        </script>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="{{ url_for('static', filename= 'vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ url_for('static', filename= 'vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+        <!-- Bootstrap core JavaScript-->
+        <script src="{{ url_for('static', filename= 'vendor/jquery/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename= 'vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="{{ url_for('static', filename= 'vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="{{ url_for('static', filename= 'vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="{{ url_for('static', filename= 'js/sb-admin-2.min.js') }}"></script>
+        <!-- Custom scripts for all pages-->
+        <script src="{{ url_for('static', filename= 'js/sb-admin-2.min.js') }}"></script>
 
-    <!-- Page level plugins -->
-    <script src="{{ url_for('static', filename= 'vendor/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ url_for('static', filename= 'vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+        <!-- Page level plugins -->
+        <script src="{{ url_for('static', filename= 'vendor/datatables/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ url_for('static', filename= 'vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="{{ url_for('static', filename= 'js/demo/datatables-demo.js') }}"></script>
+        <!-- Page level custom scripts -->
+        <script src="{{ url_for('static', filename= 'js/demo/datatables-demo.js') }}"></script>
 
-    <script src="{{url_for('static', filename='vendor/chart.js/Chart.min.js')}}"></script>
-    <script src="{{url_for('static', filename='js/dashboard.js')}}"></script>
+        <script src="{{url_for('static', filename='vendor/chart.js/Chart.min.js')}}"></script>
+        <script src="{{url_for('static', filename='js/dashboard.js')}}"></script>
+        <script>
+            function date_heure(id) {
+                date = new Date;
+                annee = date.getFullYear();
+                moi = date.getMonth();
+                mois = new Array('Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre');
+                j = date.getDate();
+                jour = date.getDay();
+                jours = new Array('Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi');
+                h = date.getHours();
+                if (h < 10) {
+                    h = "0" + h;
+                }
+                m = date.getMinutes();
+                if (m < 10) {
+                    m = "0" + m;
+                }
+                s = date.getSeconds();
+                if (s < 10) {
+                    s = "0" + s;
+                }
+                resultat = jours[jour] + ' ' + j + ' ' + mois[moi] + ' ' + annee + ' il est ' + h + ':' + m + ':' + s;
+                document.getElementById(id).innerHTML = resultat;
+                setTimeout('date_heure("' + id + '");', '1000');
+                return true;
+            }
 
+            window.onload = date_heure('date_heure');
+
+        </script>
 </body>
 
 </html>
