@@ -152,7 +152,7 @@
                     s = "0" + s;
                 }
                 resultat = jours[jour] + ' ' + j + ' ' + mois[moi] + ' ' + annee + ' il est ' + h + ':' + m + ':' + s;
-                document.getElementById(id).innerHTML = resultat;
+                document.getElementById(id).innerHTML += resultat;
                 setTimeout('date_heure("' + id + '");', '1000');
                 return true;
             }
