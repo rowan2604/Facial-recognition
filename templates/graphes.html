@@ -153,7 +153,7 @@
                 if (s < 10) {
                     s = "0" + s;
                 }
-                resultat = jours[jour] + ' ' + j + ' ' + mois[moi] + ' ' + annee + ':' + h + ':' + m + ':' + s;
+                resultat = jours[jour] + ' ' + j + ' ' + mois[moi] + ' ' + annee + ' : ' + h + ':' + m + ':' + s;
                 let sp=document.getElementById(id).innerHTML
                 document.getElementById(id).innerHTML = resultat;
                 setTimeout('date_heure("' + id + '");', '1000');
