@@ -85,7 +85,6 @@ def ajouterEtRetour():
             prenom = request.form['prenom']
             promo = request.form['promo']
             pic1 = request.files.getlist('photo1')
-            print(pic1[0])
             pic2 = request.files['photo2']
             pic3 = request.files['photo3']
             pic4 = request.files['photo4']
@@ -98,7 +97,9 @@ def ajouterEtRetour():
             # On stocke la commande SQL à effectuer pour ajouter notre étudiant à la BDD afin de ne pas avoir une commande trop longue par la suite
             sql = "INSERT INTO Etudiant (Nom, Prenom, Promo, Presence, Photo1, Photo2, Photo3, Photo4, Photo5, Photo6, Photo7) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
             # On convertit toutes nos photos en BlobFile afin de pouvoir les stocker convenablement en BDD
-            blobFile1 = pic1[0].read()
+            for files in pic1:
+                files.read()
+            #blobFile1 = pic1.read()
             blobFile2 = pic2.read()
             blobFile3 = pic3.read()
             blobFile4 = pic4.read()
