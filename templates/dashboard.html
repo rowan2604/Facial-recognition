@@ -85,7 +85,8 @@
                                                     <input  name="nom" type="hidden" value={{post[1]}}>
                                                     <input  name="prenom" type="hidden" value={{post[2]}}>
                                                     <input name="promo" type="hidden" value={{post[3]}}>
-                                                    <input type="submit" src="{{ url_for('static', filename= 'img/trash.svg') }}">
+                                                    <input type="submit" class="btn btn-danger" > 
+                                                        <img  src="{{ url_for('static', filename= 'img/trash.svg') }}">
                                                     </input>
                                                 </form>
                                             </td>
