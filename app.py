@@ -84,8 +84,8 @@ def ajouterEtRetour():
             nom = request.form['nom']
             prenom = request.form['prenom']
             promo = request.form['promo']
-            pic1 = request.files.getlist("photo1")
-            print(pic1)
+            pic1 = request.files.getlist('photo1')
+            print(pic1[0])
             pic2 = request.files['photo2']
             pic3 = request.files['photo3']
             pic4 = request.files['photo4']
