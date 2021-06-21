@@ -65,15 +65,16 @@
                                                     <input type="password" class="form-control form-control-user" name ="identifiant" id="identifiant"
                                                         placeholder="Identifiant" required>
                                                 </div>
-                                                <div class="col-sm-6">
-                                                    <input type="password" class="form-control form-control-user" name ="ancienMDP" id="ancienMDP"
-                                                        placeholder="Ancien Mot de Passe" required>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <input type="text" class="form-control form-control-user" name ="nouveauMDP" id="nouveauMDP"
-                                                        placeholder="Nouveau Mot de Passe" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,15})" required>
-                                                </div>
-                                               
+                                                <div class="form-group row">
+                                                    <div class="col-sm-6">
+                                                        <input type="text" class="form-control form-control-user" name ="ancienMDP" id="ancienMDP"
+                                                            placeholder="Ancien Mot de Passe" required>
+                                                    </div>
+                                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                                        <input type="text" class="form-control form-control-user" name ="nouveauMDP" id="nouveauMDP"
+                                                            placeholder="Nouveau Mot de Passe" pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$@%_])([-+!*$@%_\w]{8,15})" required>
+                                                    </div>
+                                        
                                                 <br class="row">
                                                 </div>
                                                 <input type="submit" class="btn btn-primary btn-user btn-block">
