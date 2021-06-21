@@ -57,7 +57,8 @@
                             <div class="card-header py-3">
                                 <h6 class="m-0 font-weight-bold text-primary">Taux d'absence / présence des étudiants au
                                     sein de l'ISEN</h6>
-                                <h6 class="m-0 font-weight-bold text-primary" id="date_heure"></h6>
+                                <span id="date_heure"></span>
+                                
                             </div>
                             <!-- Card Body -->
 
@@ -154,7 +155,7 @@
                 }
                 resultat = jours[jour] + ' ' + j + ' ' + mois[moi] + ' ' + annee + ' il est ' + h + ':' + m + ':' + s;
                 let sp=document.getElementById(id).innerHTML
-                document.getElementById(id).innerHTML = sp+' '+resultat;
+                document.getElementById(id).innerHTML = resultat;
                 setTimeout('date_heure("' + id + '");', '1000');
                 return true;
             }
