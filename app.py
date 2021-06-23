@@ -87,6 +87,11 @@ def ajouterEtRetour():
             pic1 = request.files.getlist('photo1')
             print("JE SUIS LAAAAAAAAAAAAAAAAAAAAAAA")
             print(pic1)
+            image=[]
+            for picture in pic1:
+                image.append(picture)
+            print("JE SUIS LAAAAAAAAAAAAAAAAAAAAAAA22222222222")
+            print(image[0])
             pic2 = request.files['photo2']
             pic3 = request.files['photo3']
             pic4 = request.files['photo4']
