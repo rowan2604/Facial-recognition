@@ -104,7 +104,7 @@ def ajouterEtRetour():
             # On stocke la commande SQL à effectuer pour ajouter notre étudiant à la BDD afin de ne pas avoir une commande trop longue par la suite
             sql = "INSERT INTO Etudiant (Nom, Prenom, Promo, Presence, Photo1, Photo2, Photo3, Photo4, Photo5, Photo6, Photo7) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
             # On convertit toutes nos photos en BlobFile afin de pouvoir les stocker convenablement en BDD
-            blobFile1 = pic1.read()
+            blobFile1 = image[0].read()
             blobFile2 = pic2.read()
             blobFile3 = pic3.read()
             blobFile4 = pic4.read()
