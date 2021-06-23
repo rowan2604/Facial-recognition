@@ -109,16 +109,22 @@
                                                         <input type="file" id="photo7" name="photo7" accept="image/png, image/jpeg" required> -->
                                                 </div>
                                                 <script>
-                                                        let photo = "photo1";
-                                                        var uploadField = document.getElementById(photo);
-                                                        uploadField.onchange = function () {
+                                                    let photo = "photo1";
+                                                    var uploadField = document.getElementById(photo);
+                                                    uploadField.onchange = function () {
+                                                        if (this.files.length == 7) {
                                                             for (let i = 0; i < this.files.length; i++) {
                                                                 if (this.files[i].size > 50000) {
-                                                                    alert("Le fichier que vous voulez ajouter est trop lourd ! \nIl doit faire moins de 50000 octets");
+                                                                    alert("Le fichier numéro" + i + 1 + "que vous voulez ajouter est trop lourd ! \nIl doit faire moins de 50000 octets");
                                                                     this.value = "";
                                                                 }
                                                             };
-                                                        };
+                                                        }
+                                                        else{
+                                                            alert("Il faut 7 images");
+                                                            this.value = "";
+                                                        }
+                                                    };
                                                 </script>
                                         </div>
                                         <input type="submit" class="btn btn-primary btn-user btn-block">
