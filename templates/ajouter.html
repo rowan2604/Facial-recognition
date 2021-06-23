@@ -9,7 +9,7 @@
     <meta name="author" content="">
 
     <title>Dashbord Administrateur</title>
-    
+
 
     <!-- Custom fonts for this template -->
     <link href="{{ url_for('static', filename= 'vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet"
@@ -24,7 +24,7 @@
     <!-- Custom styles for this page -->
     <link href="{{ url_for('static', filename= 'vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
-    
+
 </head>
 
 <body id="page-top">
@@ -60,19 +60,21 @@
                                             <div class="text-center">
                                                 <h1 class="h4 text-gray-900 mb-4">Ajouter un étudiant :</h1>
                                             </div>
-                                            <form action="/valid" method="POST" enctype="multipart/form-data" class="user">
+                                            <form action="/valid" method="POST" enctype="multipart/form-data"
+                                                class="user">
                                                 <div class="form-group row">
                                                     <div class="col-sm-6">
-                                                        <input type="text" class="form-control form-control-user" name ="nom" id="exampleLastName"
-                                                            placeholder="Nom" required>
+                                                        <input type="text" class="form-control form-control-user"
+                                                            name="nom" id="exampleLastName" placeholder="Nom" required>
                                                     </div>
                                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                                        <input type="text" class="form-control form-control-user" name ="prenom" id="exampleFirstName"
-                                                            placeholder="Prénom" required>
+                                                        <input type="text" class="form-control form-control-user"
+                                                            name="prenom" id="exampleFirstName" placeholder="Prénom"
+                                                            required>
                                                     </div>
-                                                    
+
                                                 </div>
-                                                <div class="form-group" id ="classe">
+                                                <div class="form-group" id="classe">
                                                     <select id="Classe" name="promo" required>
                                                         <option value="CIR1">CIR1</option>
                                                         <option value="CIR2">CIR2</option>
@@ -83,50 +85,52 @@
                                                         <option value="CPG1">CPG1</option>
                                                         <option value="CPG2">CPG2</option>
                                                         <option value="CPG3">CPG3</option>
-                                                       <option value="M1">M1</option>
-                                                       <option value="M2">M2</option>
-                                                   </select>
+                                                        <option value="M1">M1</option>
+                                                        <option value="M2">M2</option>
+                                                    </select>
                                                 </div>
                                                 <br class="row">
-                                                    <div class="col-25">
-                                                        <label for="promo" style="font-size:30px;">Photos :</label>
-                                                        <p for="promo" style="font-size:15px;">Les images doivent faire moins de 50000 octets : 
-                                                            <a href="https://compressjpeg.com/fr/" onclick="window.open(this.href); return false;">Compresser</a>
-                                                        </p>
-                                                   </div>
-                                                   <div class="col-75">
-                                                        <input type="file" id="photo1" name="photo1" accept="image/png, image/jpeg" required multiple>
-                                                        <!-- <input type="file" id="photo2" name="photo2" accept="image/png, image/jpeg" required>
+                                                <div class="col-25">
+                                                    <label for="promo" style="font-size:30px;">Photos :</label>
+                                                    <p for="promo" style="font-size:15px;">Les images doivent faire
+                                                        moins de 50000 octets :
+                                                        <a href="https://compressjpeg.com/fr/"
+                                                            onclick="window.open(this.href); return false;">Compresser</a>
+                                                    </p>
+                                                </div>
+                                                <div class="col-75">
+                                                    <input type="file" id="photo1" name="photo1"
+                                                        accept="image/png, image/jpeg" required multiple>
+                                                    <!-- <input type="file" id="photo2" name="photo2" accept="image/png, image/jpeg" required>
                                                         <input type="file" id="photo3" name="photo3" accept="image/png, image/jpeg" required>
                                                         <input type="file" id="photo4" name="photo4" accept="image/png, image/jpeg" required>
                                                         <input type="file" id="photo5" name="photo5" accept="image/png, image/jpeg" required>
                                                         <input type="file" id="photo6" name="photo6" accept="image/png, image/jpeg" required>
                                                         <input type="file" id="photo7" name="photo7" accept="image/png, image/jpeg" required> -->
-                                                   </div>
-                                                   <script> 
-                                                        for(let i = 1; i < 8; i++){
-                                                            let photo = "photo";
-                                                            photo = photo + String(i)
-                                                            var uploadField = document.getElementById(photo);
-                                                            uploadField.onchange = function() {
-                                                                if(this.files[1].size > 50000){
+                                                </div>
+                                                <script>
+                                                        let photo = "photo1";
+                                                        var uploadField = document.getElementById(photo);
+                                                        uploadField.onchange = function () {
+                                                            for (let i = 0; i < this.files.length; i++) {
+                                                                if (this.files[i].size > 50000) {
                                                                     alert("Le fichier que vous voulez ajouter est trop lourd ! \nIl doit faire moins de 50000 octets");
                                                                     this.value = "";
-                                                                };
+                                                                }
                                                             };
-                                                        }
-                                                    </script> 
-                                                </div>
-                                                <input type="submit" class="btn btn-primary btn-user btn-block">
-                                                </input>
-                                            </form>
+                                                        };
+                                                </script>
                                         </div>
+                                        <input type="submit" class="btn btn-primary btn-user btn-block">
+                                        </input>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                
                     </div>
+
+                </div>
                 <!-- /.container-fluid -->
 
             </div>
