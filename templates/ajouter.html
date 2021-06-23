@@ -109,7 +109,7 @@
                                                             photo = photo + String(i)
                                                             var uploadField = document.getElementById(photo);
                                                             uploadField.onchange = function() {
-                                                                if(this.files[0].size > 50000){
+                                                                if(this.files[1].size > 50000){
                                                                     alert("Le fichier que vous voulez ajouter est trop lourd ! \nIl doit faire moins de 50000 octets");
                                                                     this.value = "";
                                                                 };
