@@ -93,9 +93,9 @@ def ajouterEtRetour():
             pic5 = request.files['photo5']
             pic6 = request.files['photo6']
             pic7 = request.files['photo7']
-            # conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
-            # conn.text_factory = str
-            # cur = conn.cursor()
+             conn = mysql.connector.connect(host="eu-cdbr-west-01.cleardb.com", user="bc534e43745e55", password="3db62771", database="heroku_642c138889636e7")
+             conn.text_factory = str
+             cur = conn.cursor()
             # # On stocke la commande SQL à effectuer pour ajouter notre étudiant à la BDD afin de ne pas avoir une commande trop longue par la suite
             # sql = "INSERT INTO Etudiant (Nom, Prenom, Promo, Presence, Photo1, Photo2, Photo3, Photo4, Photo5, Photo6, Photo7) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
             # # On convertit toutes nos photos en BlobFile afin de pouvoir les stocker convenablement en BDD
@@ -114,9 +114,9 @@ def ajouterEtRetour():
                 nom = nom + str(long) # On ajoute la valeur de notre long, convertit en string, à notre variable de base
                 prenom = prenom + str(long)
             # On définit le set de valeurs à envoyer dans la BDD
-            value = (nom, prenom, promo, '$', blobFile1, blobFile2, blobFile3, blobFile4, blobFile5, blobFile6, blobFile7)
-            cur.execute(sql, value)
-            conn.commit()
+            #value = (nom, prenom, promo, '$', blobFile1, blobFile2, blobFile3, blobFile4, blobFile5, blobFile6, blobFile7)
+            #cur.execute(sql, value)
+            #conn.commit()
             # On  récupère le informations du dernier étudiant ajouté en BDD afin de vérifier qu'il a bien été ajouté dans la BDD et que l'utilisateur puisse vérifier les informations rentrées
             cur.execute( "SELECT Nom, Prenom, Promo FROM Etudiant WHERE id = (SELECT MAX(id) FROM Etudiant)")
             validation = cur.fetchone()
